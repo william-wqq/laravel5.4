@@ -15,7 +15,6 @@ $app = new Illuminate\Foundation\Application(
     realpath(__DIR__.'/../')
 );
 
-echo 'app ';
 /*
 |--------------------------------------------------------------------------
 | Bind Important Interfaces

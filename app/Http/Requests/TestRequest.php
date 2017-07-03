@@ -24,7 +24,7 @@ class TestRequest extends FormRequest
      */
     public function rules()
     {
-        echo 'request ';
+        //echo 'request ';
         return [
             //
         ];

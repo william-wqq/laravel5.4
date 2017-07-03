@@ -28,14 +28,12 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        echo 'boot1 ';
         parent::boot();
-
         //
     }
 
     public function register()
     {
-        echo 'register1 ';
+
     }
 }

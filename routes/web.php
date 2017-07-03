@@ -22,7 +22,6 @@ Route::get('/test.index', 'TestController@index')->name('test.index');
 
 Route::get('provider', 'ExampleController@index')->name('index');
 
-echo 'router ';
 Route::get('/test.string', 'TestController@testString')->name('test.string');
 Route::get('/wqq', 'TestController@wqq')->name('hello');
 Route::get('/test', ['middleware' => 'test', 'uses' => 'TestController@test'])->name('test');

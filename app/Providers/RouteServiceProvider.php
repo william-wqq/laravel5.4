@@ -24,13 +24,12 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-        echo 'boot2 ';
         parent::boot();
     }
 
     public function register()
     {
-        echo 'register2 ';
+
     }
 
     /**

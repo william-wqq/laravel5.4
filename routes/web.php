@@ -14,14 +14,14 @@
 /*Route::get('/', function () {
     return view('welcome');
 });*/
-
+/*ExampleController*/
 Route::get('/', 'ExampleController@index')->name('index');
 Route::get('/show', 'ExampleController@show')->name('show');
 Route::get('/save', 'ExampleController@save')->name('save');
-Route::get('/test.index', 'TestController@index')->name('test.index');
-
 Route::get('provider', 'ExampleController@index')->name('index');
 
-Route::get('/test.string', 'TestController@testString')->name('test.string');
-Route::get('/wqq', 'TestController@wqq')->name('hello');
-Route::get('/test', ['middleware' => 'test', 'uses' => 'TestController@test'])->name('test');
+
+/*TestController*/
+Route::get('/test/index', 'TestController@index')->name('test.index');
+Route::get('/test/string', 'TestController@testString')->name('test.string');
+Route::get('/test', ['middleware' => 'test', 'uses' => 'TestController@test'])->name('test.www');

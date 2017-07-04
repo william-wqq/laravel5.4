@@ -1,0 +1,253 @@
+2017-6-13********************
+
+laravel安装ideHelper
+
+/home/wwwroot/wqq/app/Http/Controllers/ExampleController.php index方法
+
+路径函数
+$_SERVER['DOCUMENT_ROOT']  获得服务器文档根 /home/wwwroot/wqq/public
+
+$_SERVER['PHP_SELF']  获得执行该代码的文件服务器绝对路径  /index.php
+	
+__FILE__ 获得文件的文件系统绝对路径 /home/wwwroot/wqq/app/Http/Controllers/ExampleController.php
+
+__DIR__  获得文件的文件目录绝对路径 /home/wwwroot/wqq/app/Http/Controllers
+
+realpath(); 返回规范化的绝对路径名
+
+pathinfo(); 返回文件路径的信息 diranme,basename,extension,filename
+
+dirname();  返回路径中的目录部分
+
+basename(); 返回路径中的文件名部分
+
+数组函数
+
+
+2017-6-13********************
+laravel自定义artisan命令()
+	1.app/Console/Commands/Test.php
+	2.app/Console/Kernel.php  protected $commands = [ Commands\StorageLink::class ]
+	3.php artisan list查看
+
+laravel自定义异常(app/Exceptions/Handler.php)
+	1.report() 记录异常
+	2.render() http响应异常
+	3.自己写异常类
+
+laravel事件--------\Event::fire(new TestEvent())或者event(new TestEvent())
+	1.app/Events/TestEvent.php 定义事件
+	2.app/Listeners/TestListeners.php 定义监听器
+	3.app/Providers/EventServiceProvider.php  protected $listen = [ 'App\Events\TestEvent' => ['App\Listeners\TestListener'] ]; 注册监听器
+	4.app/Http/Controllers/TestController.php \Event::fire(new TestEvent())或者event(new TestEvent())  触发事件
+
+laravel队列
+
+
+strtr()
+
+array_reduce()
+
+
+2017-6-14********************
+发邮件
+http://www.17educations.com/laravel/how-to-send-emails-in-laravel/
+
+Container Service Provider&Service三者之间的关系
+Request类就是一种服务（Service）。而Service provider负责向容器container“提供”服务（Service）
+http://blog.csdn.net/qq_20873039/article/details/51508801
+
+
+
+2017-6-15********************
+--Laravel Captcha验证码
+	http://laravelacademy.org/post/3910.html
+	1.注册服务提供者 2.注册门面Facade 3.生成配置文件
+	php artisan vendor:publish  作用:在config生成所有配置文件
+	php artisan vendor:publish --provider="Mews\Captcha\CaptchaServiceProvider" --tag=config指定在config目录下生成该服务的配置文件captch.php
+
+--导入导出Excel(同上)
+
+--Laraval IDE 代码追踪、自动补全插件：Laravel IDE Helper Generator 
+	http://laravelacademy.org/post/4202.html
+	****https://toutiao.io/posts/0dqzwd/preview (IDE和Laravel Plugins的安装很详细)
+	php artisan ide-helper:generate 自动生成Laravel门面对应的phpDoc
+	php artisan ide-helper:meta PHPStorm中容器实例对应的Meta
+	php artisan ide-helper:models 自动生成模型对应的phpDoc
+
+
+	http://oomusou.io/phpstorm/phpstorm-phpdoc/ phpDoc注解
+
+
+--laravel-debugbar bug调试插件
+
+
+
+2017-6-16********************
+	----MYSQL外键(Foreign Key)的使用
+	InnoDB引擎类型的表支持了外键约束
+	外键的使用条件：
+		1.两个表必须是InnoDB表，MyISAM表暂时不支持外键（据说以后的版本有可能支持，但至少目前不支持）；
+		2.外键列必须建立了索引，MySQL 4.1.2以后的版本在建立外键时会自动创建索引，但如果在较早的版本则需要显示建立； 
+		3.外键关系的两个表的列必须是数据类型相似，也就是可以相互转换类型的列，比如int和tinyint可以，而int和char则不可以；
+	外键的好处：可以使得两张表关联，保证数据的一致性和实现一些级联操作
+	外键的定义语法：
+	[CONSTRAINT symbol] FOREIGN KEY [id] (index_col_name, ...)
+	    REFERENCES tbl_name (index_col_name, ...)
+	    [ON DELETE {RESTRICT | CASCADE | SET NULL | NO ACTION | SET DEFAULT}]
+	    [ON UPDATE {RESTRICT | CASCADE | SET NULL | NO ACTION | SET DEFAULT}]
+
+	CONSTRAINT `conf_carrier_rebate_financial_flow_agent_ibfk_1` FOREIGN KEY (`agent_level_id`) REFERENCES `inf_carrier_agent_level` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	该语法可以在 CREATE TABLE 和 ALTER TABLE 时使用，如果不指定CONSTRAINT symbol，MYSQL会自动生成一个名字。
+	ON DELETE、ON UPDATE表示事件触发限制，可设参数：
+	RESTRICT（限制外表中的外键改动）
+	CASCADE（跟随外键改动）
+	SET NULL（设空值）
+	SET DEFAULT（设默认值）
+	NO ACTION（无动作，默认的）
+	http://www.cppblog.com/wolf/articles/69089.html
+
+
+	主键和唯一键都用于强制列的唯一性。那么，你什么时候选择一个呢？
+		一个表可以只有一个主键。如果要在2个或更多列上强制执行唯一性，那么我们使用唯一的键约束。
+	主键约束和唯一键约束之间的区别？
+		1.一个表只能有一个主键，但不止一个唯一键
+		2.主键不允许空值，其中唯一键允许一个空值
+
+	-----触发器的使用
+
+
+2017-6-19********************
+
+抽象类与接口的区别
+	区别：
+		对接口的使用方式是通过关键字implements来实现的，而对于抽象类的操作是使用类继承的关键字exotends实现的，使用时要特别注意。
+		接口中不可以声明成员变量（包括类静态变量），但是可以声明类常量。抽象类中可以声明各种类型成员变量，实现数据的封装
+		接口没有构造函数，抽象类可以有构造函数。
+		接口中的方法都是public类型，而抽象类中的方法可以使用private、protected或public来修饰。
+		一个类可以同时实现多个接口，但是只能实现一个抽象类。
+		实现接口所有方法，继承抽象中所有的抽象方法
+ 
+	相同点：函数体内不能写任何东西，连两个大括号都不能写！！！如：function getName();这样就行了
+	
+
+	选择：抽象类还是接口。
+		如果要创建一个模型，这个模型将由一些紧密相关的对象采用，就可以使用抽象类。如果要创建将由一些不相关对象采用的功能，就使用接口。
+		如果必须从多个来源继承行为，就使用接口。
+		如果知道所有类都会共享一个公共的行为实现，就使用抽象类，并在其中实现该行为。
+
+
+PHP heredoc(会解析变量)和nowdoc(不会解析变量)
+
+
+static 定义的变量和方法的使用(静态存储区在整个程序运行期间都存在)
+
+	//$parent = new parent;
+	
+	//$self = new self;
+
+	1、通用  Classname::$var  Classname::method(类内外);
+
+	2、类中  self::$var  self::method //(非静态方法中也可以$this::$var $this::method) 另外在静态方法中无法访问当前类的任何普通成员变量，准确的来说是无法使用关键字$this，只可以使用当前类的静态成员变量，和类常量;
+
+	3、类外  $obj = new Classname; $obj->method 或$obj::method; $obj::$var 但不能$obj->$var(不可使用)
+
+
+类常量(类内部只可以修饰成员属性，无法修饰方法，一经定义就无法修改值)
+	1、通用  Classname::constant(类内外);
+
+	2、类中  self::constant  //(非静态方法中也可使用$this::constant,静态方法不可用$this)
+
+	3、类外  $obj = new Classname; $obj::constant;
+
+
+call_user_func_array()  call_user_func() get_class($this);
+
+
+
+2017-6-20********************
+php数组函数分类整理
+http://www.cnblogs.com/zhengfengyun/p/5360721.html
+$arr = [
+            'a'=>['name'=>'wua', 'age'=>'10'],
+            'b'=>['name'=>'wub', 'age'=>'20'],
+            'c'=>['name'=>'wuc', 'age'=>'30'],
+            'd'=>['name'=>'wud', 'age'=>'40'],
+       ];
+array_map(为什么和下面三个函数不一样，他的回调放在第一个参数)   
+	方法一：
+	$nameMap = array_map(function($item){//一维数组()
+            return $item['name'];
+        }, $arr);
+
+	方法二：
+	$ageColumns = array_columns($arr, 'age');//一维数组
+
+
+array_reduce(注意第三个参数的使用)
+	方法一：
+	$ageSum = array_reduce($arr, function($result, $item){//递归求和
+		return $result+$item['age'];
+	});
+
+	方法二：
+	$ageSum = array_reduce($ageColumns, function($result, $item){//递归求和
+		return $result+$item;
+	});
+
+
+array_walk(注意第三个参数的使用)
+	array_walk($arr, function(&$element){//把$arr数组age全都修改为100   print_r($arr)
+            return $element['age'] = 100;
+        });
+
+
+array_filter(注意第三个参数的使用)
+	$filter = array_filter($arr, function($item) {//过滤其他，返回id=1的数组
+            return $item['id'] == 1;
+        });
+
+
+
+浏览器输出
+http://php.net/manual/zh/debugger.php
+用heredoc稍微改进了一下
+	public function console_log($data){
+	//        echo "<script>";
+	//        echo "console.log(" . json_encode($data) . ")";
+	//        echo "</script>";
+		$data = json_encode($data);
+
+		$data = <<<EOD
+	<script>console.log($data)</script>
+	EOD;
+		echo $data;
+	}
+
+socket套接字
+http://www.jb51.net/article/97758.htm
+
+
+
+return是返回值
+die是遇到错误才停止  
+	die("不能打开该文件");	
+exit是直接停止，并且不运行后续代码，exit()可以显示内容。
+	exit('0') 输出0 并结束程序
+	exit('1') 输出1 并结束程序
+return就是纯粹的返回值了，但是也不会运行后续代码
+exit（0）：正常运行程序并退出程序；( 不输出内容，结束程序)
+exit（1）：非正常运行导致退出( 不输出内容，结束程序)
+
+
+回车换行
+http://www.tuicool.com/articles/IJjQVb
+
+
+
+
+
+
+
+
+

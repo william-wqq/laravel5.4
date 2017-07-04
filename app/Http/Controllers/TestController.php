@@ -25,7 +25,11 @@ class TestController extends Controller
     public static function test(TestRequest $request){
 
         $name = config('test.conf.name');
-        echo $name;
+
+        $type = $request->method();
+        $route = route('test.string');
+
+        echo $route;
         //echo 'controller';
     }
 

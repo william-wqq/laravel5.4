@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers;
 use App\Http\Requests\TestRequest;
+use App\Mail\SendMail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ExampleController;
 
@@ -18,6 +19,22 @@ class TestController extends Controller
     {
         //$this->test = $var;
         //$this->test1 = $var1
+
+    }
+
+    public function sendMail(){
+
+
+        //dd(11);
+        $to = '1160735344@qq.com';
+
+        try{
+            \Mail::to($to)->send(new SendMail());
+            echo  'succ';
+        }catch(\Exception $e){
+            throw $e;
+        }
+
 
     }
 

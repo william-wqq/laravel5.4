@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>404页面</title>
+    <title>500页面</title>
     <link href = "https://fonts.googleapis.com/css?family=Lato:100" rel = "stylesheet"
           type = "text/css">
 
@@ -39,7 +39,7 @@
 
 <div class = "container">
     <div class = "content">
-        <div class = "title">404 错误</div>
+        <div class = "title">500 错误{!! $errorMsg !!}{!! $trace !!}</div>
     </div>
 </div>
 

@@ -2,6 +2,8 @@
 
 namespace App\Exceptions;
 
+use App\Jobs\ExceptionSendMailJob;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -49,10 +51,22 @@ class Handler extends ExceptionHandler
             return \SWTemplate::NotFound();
         }*/
         if($exception instanceof NotFoundHttpException){
-            //
+            //自定义not found界面
+            //if ($response->isServerError()) {
+
+                //$time = Carbon::now()->addMinute(1);
+                dispatch((new ExceptionSendMailJob($exception))->delay(60)->onQueue('email'));
+            //}
+            return response(\SWTemplate::NotFound());
         }
 
-        return parent::render($request, $exception);
+
+        $response = parent::render($request, $exception);
+
+
+
+        return $response;
+
     }
 
     /**

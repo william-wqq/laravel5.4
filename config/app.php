@@ -179,10 +179,14 @@ return [
 
         /*IDE-Helper 2017-6-16 13:26:19*/
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        /*Debugbar 2017-6-16*/
         Barryvdh\Debugbar\ServiceProvider::class,
-
-        /*模板 2017-6-16*/
+        /*自定义模板 2017-6-16*/
         App\Providers\SWTemplateServiceProvider::class,
+        /*自定义日志 2017-07-10*/
+        App\Providers\SLogServiceProvider::class,
+        /* InfyOmGenerator 2017-7-7*/
+        InfyOm\Generator\InfyOmGeneratorServiceProvider::class,
 
     ],
 
@@ -235,6 +239,8 @@ return [
 
         /*2017-6-16*/
         'SWTemplate' => App\Facades\SWTemplateFacade::class,
+        /*2017-07-10*/
+        'SLog' => App\Facades\SLogFacade::class,
 
     ],
 

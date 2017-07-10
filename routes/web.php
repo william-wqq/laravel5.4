@@ -25,3 +25,8 @@ Route::get('provider', 'ExampleController@index')->name('index');
 Route::get('/test/index', 'TestController@index')->name('test.index');
 Route::get('/test/string', 'TestController@testString')->name('test.string');
 Route::get('/test', ['middleware' => 'test', 'uses' => 'TestController@test'])->name('test.www');
+Route::get('/collection', ['middleware' => 'test', 'uses' => 'TestController@collection'])->name('collection');
+
+
+
+Route::get('/mail', ['uses' => 'TestController@sendMail'])->name('mail');

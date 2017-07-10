@@ -1,0 +1,60 @@
+穹顶穿越(2017/6/12  30天)
+1160735344@qq.com
+qdcy123456
+
+git
+http://www.liaoxuefeng.com
+https://git-scm.com/book/zh/v1/%E8%B5%B7%E6%AD%A5
+
+https://almsaeedstudio.com/premium
+
+
+//开发在线工具
+http://www.toutiao.com/i6404764595558285825/
+
+//laravel框架
+https://laravel-china.org/
+http://www.laravist.com
+
+http://oomusou.io/phpstorm/phpstorm-phpdoc/ phpDoc注解
+
+https://divinglaravel.com/ (学习中)
+
+//Laravel 精选资源大全（持续更新）
+http://laravelacademy.org/post/153.html
+
+//5.3文档
+http://d.laravel-china.org/docs/5.3
+
+//phpStorm配置
+http://blog.csdn.net/fenglailea/article/details/12166617
+http://blog.csdn.net/fenglailea/article/details/38311673
+
+
+学习网站
+1、github
+2、Stack OverFlow
+
+3、laravel的启动过程解析
+http://www.cnblogs.com/lpfuture/p/5578274.html
+http://blog.csdn.net/fationyyk/article/details/50971737
+
+4、Larvel 手册梳理
+http://blog.csdn.net/csscar/article/details/50480583/
+
+5、下载量最高的 100 个 Laravel 扩展包推荐
+https://laravel-china.org/topics/2530/the-highest-amount-of-downloads-of-the-100-laravel-extensions-recommended
+
+6、自定义artisan命令
+http://www.cnblogs.com/Alex-sk/p/6593257.html
+
+http://laravelacademy.org/post/1374.html
+
+
+7.牛人的github)(2017-7-6 17:44:42)
+https://github.com/johnlui
+https://lvwenhan.co
+
+
+关键字
+解耦、依赖注入DI、控制反转IoC、IoC容器<=>服务容器（Containter类）

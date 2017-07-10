@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.4.28 on 2017-07-05.
+ * Generated for Laravel 5.4.28 on 2017-07-10.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -11569,6 +11569,34 @@ namespace App\Facades {
         }
          
     }
+
+    class SLogFacade {
+        
+        /**
+         * 记录信息
+         *
+         * @param $message
+         * @param array $context
+         * @static 
+         */ 
+        public static function info($message, $context = array())
+        {
+            return \App\Services\SLogService::info($message, $context);
+        }
+        
+        /**
+         * 记录错误信息
+         *
+         * @param $message
+         * @param array $context
+         * @static 
+         */ 
+        public static function error($message, $context = array())
+        {
+            return \App\Services\SLogService::error($message, $context);
+        }
+         
+    }
  
 }
 
@@ -13637,6 +13665,8 @@ namespace  {
     class View extends \Illuminate\Support\Facades\View {}
 
     class SWTemplate extends \App\Facades\SWTemplateFacade {}
+
+    class SLog extends \App\Facades\SLogFacade {}
  
 }
 

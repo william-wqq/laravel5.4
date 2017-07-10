@@ -12,13 +12,21 @@ class SendMail extends Mailable
     use Queueable, SerializesModels;
 
     /**
+     * 收件者的用户名
+     *
+     * @var
+     */
+    public $receiveName;
+
+    /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($receiveName)
     {
         //
+        $this->receiveName = $receiveName;
     }
 
     /**
@@ -28,6 +36,8 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.test');
+        return $this->view('emails.email')
+            ->subject('Laravel')
+            ->with('username', $this->receiveName);
     }
 }

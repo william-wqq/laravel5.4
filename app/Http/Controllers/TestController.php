@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers;
+use App\Facades\SLogFacade;
 use App\Http\Requests\TestRequest;
 use App\Mail\SendMail;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ExampleController;
+use Illuminate\Support\Facades\Log;
+use App\Models\User;
 
 class TestController extends Controller
 {
@@ -22,19 +25,64 @@ class TestController extends Controller
 
     }
 
-    public function sendMail(){
+    /**
+     * 集合
+     *
+     * return mixed
+     */
+    public function collection()
+    {
+        $col = collect([1, 2, 3]);
+
+        $col = $col->map(function($item){
+            return pow($item, 2);
+        })->all();
+        //dd($col);
+
+        $user = User::all()->all();
+
+        array_walk($user, function(User &$item){
+            $item->age =  $item->age+100;
+            \SLog::info($item->age);
+        });
+        dd($user);
 
 
-        //dd(11);
-        $to = '1160735344@qq.com';
 
-        try{
-            \Mail::to($to)->send(new SendMail());
-            echo  'succ';
-        }catch(\Exception $e){
-            throw $e;
+    }
+
+    /**
+     * 发送邮件
+     *
+     * @return string
+     */
+    public function sendMail()
+    {
+        //第一步 指定用户
+        //$to = "1160735344@qq.com";
+
+        //第二步 从配置文件获取用户
+        //$toArray = config('mail.to');
+
+        //第三步 从数据库中取数据
+        $userAll = User::all()->toArray();
+
+        //dd($userAll->items);
+        try {
+            array_walk($userAll, function ($user) {
+                //\Mail::to($user['email'])->send(new SendMail($user['username']));
+                Log::info('发送邮件成功',[$user['username'] => $user['email']]);
+            });
+
+        } catch (\Exception $e) {
+            Log::error('发送邮件异常', ['error' => $e->getMessage()]);
+            return 'error';
         }
 
+        //第四步 队列发邮件
+
+
+        return 'send mail success';
 
     }
 

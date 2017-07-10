@@ -1,0 +1,4 @@
+composer install 安装
+composer update 更新vendor/*
+composer dump-autoload 更新自动加载类
+composer selfupdate  composer自我更新

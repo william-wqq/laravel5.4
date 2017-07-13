@@ -16,6 +16,12 @@ http://www.toutiao.com/i6404764595558285825/
 https://laravel-china.org/
 http://www.laravist.com
 
+//segmentfault
+https://segmentfault.com/
+
+//pusher广播系统
+https://pusher-community.github.io/real-time-laravel/
+
 http://oomusou.io/phpstorm/phpstorm-phpdoc/ phpDoc注解
 
 https://divinglaravel.com/ (学习中)

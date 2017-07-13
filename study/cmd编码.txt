@@ -1,0 +1,10 @@
+cmd窗口情况下：windows下cmd默认的编码是GBK
+想在windows下查看sqlite的utf-8中文需要先 执行chcp 65001把当前页换为utf-8编码
+
+chcp 命令:
+
+chcp 65001  就是换成UTF-8代码页，在命令行标题栏上点击右键，选择"属性"->"字体"，将字体修改为True Type字体"Lucida                       Console"，然后点击确定将属性应用到当前窗口
+
+chcp 936 可以换回默认的GBK 
+
+chcp 437 是美国英语

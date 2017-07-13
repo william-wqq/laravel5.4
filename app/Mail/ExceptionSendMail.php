@@ -32,6 +32,6 @@ class ExceptionSendMail extends Mailable
     public function build()
     {
         //dd($this->error);
-        return $this->view('errors.500')->with($this->error);
+        return $this->view('emails.email')->with($this->error);
     }
 }

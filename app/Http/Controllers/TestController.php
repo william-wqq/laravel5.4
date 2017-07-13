@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\CacheContantPrefixDefine;
+use App\Events\TestEvent;
 use App\Facades\SLogFacade;
 use App\Http\Requests\TestRequest;
 use App\Jobs\ExceptionSendMailJob;
+use App\Listeners\UserEventSubscriber;
 use App\Mail\SendMail;
+use Illuminate\Auth\Events\Login;
+use Illuminate\Auth\Events\Logout;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ExampleController;
@@ -69,6 +74,63 @@ class TestController extends Controller
         //$sorted->get('name');
         dd($sorted->values()->pluck('name'));
 
+    }
+
+    /**
+     * 登陆
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function login()
+    {
+
+
+        //登陆成功后缓存个人信息
+        $user = User::findOrFail(1);
+
+        //事件监听器
+        //方法一
+        //event(new TestEvent($user));
+
+        //方法二
+        //\Event::fire(new TestEvent($user));
+
+        //订阅者
+        \Event::fire(new Login($user, true));
+
+        echo 'login success';
+
+        //return redirect()->route('info/{id}', ['id' => 1]);
+
+    }
+
+
+    /**
+     * 个人中心
+     * @param $userId int
+     */
+    public function info($userId)
+    {
+        $key = CacheContantPrefixDefine::User_ACCOUNT_INFO_PREFIX.$userId;
+        if(\Cache::has($key)) {
+            $user = \Cache::get($key);
+            dd($user);
+        }
+
+        echo 'nothing';
+
+    }
+
+    /**
+     * 退出
+     * @param $userId int
+     */
+    public function logout()
+    {
+        //\Auth::logout();
+        $user = User::findOrFail(1);
+        \Event::fire(new Logout($user));
+
+        echo 'logout success';
     }
 
     /**

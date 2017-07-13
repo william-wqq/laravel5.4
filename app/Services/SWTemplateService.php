@@ -9,8 +9,22 @@ namespace App\Services;
 
 class SWTemplateService {
 
-    public function NotFound(){
+    /**
+     * The page of not found
+     * @return \View
+     */
+    public function NotFound()
+    {
         return view('errors.404');
+    }
+
+    /**
+     * The page of fatal error
+     * @return \View
+     */
+    public function FatalError()
+    {
+        return view('errors.500');
     }
 
 }

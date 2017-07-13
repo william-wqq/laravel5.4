@@ -39,7 +39,7 @@
 
 <div class = "container">
     <div class = "content">
-        <div class = "title">500 错误{!! $errorMsg !!}{!! $trace !!}</div>
+        <div class = "title">500 错误</div>
     </div>
 </div>
 

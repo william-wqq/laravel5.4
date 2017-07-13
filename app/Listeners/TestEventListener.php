@@ -81,7 +81,7 @@ class TestEventListener implements ShouldQueue
     /**
      * 处理失败的队列
      */
-    public function failed()
+    public function failed(TestEvent $event, $exception)
     {
         //TODO 处理失败的队列
         \SLog::error('监听事件队列处理失败');

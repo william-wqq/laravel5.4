@@ -1,0 +1,148 @@
+Thursday  cloudy  afternoon
+
+一、事件、事件监听者
+二、队列事件监听器
+三、事件订阅者
+四、总结
+
+Laravel 事件机制实现了一个简单的观察者模式，让我们可以订阅和监听应用中出现的各种事件。事件类 (Event) 类通常保存在 app/Events 目录下，而它们的监听类 (Listener) 类被保存在 app/Listeners 目录下。
+触发事件导致事件监听器(执行者)处理事件
+
+一、***********
+
+1、注册事件
+    php artisan make:event TestEvent
+注册监听器
+    php artisan make:listener TestEventListener
+
+手动创建每个事件和监听器是很麻烦的。简单的方式在EventServiceProvider添加事件和事件监听者映射关系
+
+    Event和Listener绑定并注册
+
+    protected $listen = [
+            'App\Events\TestEvent' => [
+                'App\Listeners\TestEventListener'
+            ]
+    ];
+    php artisan event:generate 一键生成
+2、定义事件
+3、定义监听器(handle方法)
+4、触发事件
+    event(new TestEvent(...))
+    Event::fire(new TestEvent(...))
+
+二、***********
+
+1、要对监听器进行队列化的话，只需增加 ShouldQueue 接口到你的监听器类
+    class TestEventListener implements ShouldQueue
+    {
+        //
+    }
+2、当事件被监听器调用时， 事件分发器会使用 Laravel 的 队列系统 自动将它进行队列化；可以自定义队列的连接和名称、延迟、超时、最大尝试次数
+    /**
+     * 队列化任务使用的连接名称
+     * @var string|null
+     */
+    public $connection;//redis
+
+    /**
+     * 队列化任务使用的队列名称
+     * @var string|null
+     */
+    public $queue = 'listener';
+
+    /**
+     * 队列任务处理延迟
+     * @var int|null
+     */
+    public $delay = 120;//秒
+
+    /**
+     * 任务处理失败后最大尝试次数
+     * @var int|null
+     */
+    public $tries = 5;
+
+    /**
+     * 任务处理超时时间
+     * @var int|null
+     */
+    public $timeout = 120;
+
+3、如果队列监听器任务执行次数超过在工作队列中定义的最大尝试次数，监听器的 failed 方法将会被自动调用。 failed 方法接受事件实例和失败的异常作为参数：
+
+    public function failed(TestEvent $event, $exception)
+    {
+        //
+    }
+
+4、执行队列 php artisan queue:work --queue=listener 将会在delay后执行事件监听器
+
+
+三、***********
+
+1、编写事件订阅者
+事件订阅者是一个在自身内部可以订阅多个事件的类，允许你在单个类中定义多个事件处理器。订阅者应该定义一个 subscribe 方法，这个方法接受一个事件分发器的实例。你可以调用事件分发器的 listen 方法来注册事件监听器
+
+    在App\Listeners创建一个新类，UserEventSubscriber
+
+    class UserEventSubscriber
+    {
+        /**
+         * 处理用户登录事件。
+         */
+        public function onUserLogin($event) {}
+
+        /**
+         * 处理用户注销事件。
+         */
+        public function onUserLogout($event) {}
+
+        /**
+         * 为订阅者注册监听器。
+         * @param  Illuminate\Events\Dispatcher  $events 事件分发器实例
+         */
+        public function subscribe($events)
+        {
+            $events->listen(
+                'Illuminate\Auth\Events\Login',
+                'App\Listeners\UserEventSubscriber@onUserLogin'
+            );
+
+            $events->listen(
+                'Illuminate\Auth\Events\Logout',
+                'App\Listeners\UserEventSubscriber@onUserLogout'
+            );
+        }
+
+    }
+
+2、注册事件订阅者
+在 EventServiceProvider 类的 $subscribe 属性注册订阅者
+
+    protected $subscribe = [
+        \App\Listeners\UserEventSubscriber::class
+    ];
+
+3、触发事件
+    Event::fire(new Login($user, $member));
+    Event::fire(new Logout($user));
+    //同理event()
+
+四、***********
+
+比如登陆记录日志，如果在controller逻辑层实现，未免代码杂乱，所以说事件可以很好的实现
+
+对于产品经理来说，事件主要用来规范你的业务逻辑，使支线逻辑与主线逻辑独立分拆。
+对于程序员来说，事件可以让Controller变得非常简洁，解耦，可维护
+
+解耦：http://www.cnblogs.com/sweng/p/6430374.html
+
+究竟为什么要使用Event
+使用Event一段时间后，你可以觉得比较麻烦，想知道到底有什么好处。
+假设创建一个类 Event， 那么$event->sendWelcomeMessage($user) 这样去使用， 和用观察者模式的事件有啥区别，观察者模式好处在哪里？
+首先你要明白，事件是一种『钩子』，Fire事件的位置就是放置钩子的地方。而上面那种写法是直接嵌入的，没有钩子，也就是说，上面的写法没有事件的概念，事件是不用管你怎么做的，事件只定义发生了什么事（当...时），这样就可以解耦。
+区别就在于，在主逻辑线上的事件，没有做任何事情，它只是说有这样一件事，对于这件事，你可以做点事情，也可以什么都不做。而$event->sendWelcomeMessage($user)这种写法就是hardcoding了，到了那个地方必须发生sendWelcomeMessage这个行为。
+作为团队的一个leader，你可以把主逻辑定义后，然后在主逻辑线上设计事件节点，然后把具体怎么处理这些事件的事务交给团队里的成员去做，成员根本不用管主逻辑和插入事件（钩子）的地方，成员只用写触发事件时要处理的逻辑就可以了。
+这样是不是很方便合理啊，如果把所有处理逻辑都写在Event类里面，那多人处理的时候岂不是要同时修改一个文件，这样就会有版本冲突问题。
+另外Event还可以异步队列执行，这也是好处之一。

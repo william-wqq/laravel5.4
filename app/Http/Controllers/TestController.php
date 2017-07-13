@@ -32,6 +32,14 @@ class TestController extends Controller
     }
 
     /**
+     * 辅助函数
+     */
+    public function supportFunc()
+    {
+
+    }
+
+    /**
      * 集合
      *
      * return mixed

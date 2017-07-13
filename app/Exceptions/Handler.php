@@ -2,9 +2,12 @@
 
 namespace App\Exceptions;
 
+use App\Jobs\ExceptionSendMailJob;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\Debug\Exception\FatalErrorException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
@@ -45,14 +48,36 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        /*if($exception instanceof NotFoundHttpException){
-            return \SWTemplate::NotFound();
-        }*/
-        if($exception instanceof NotFoundHttpException){
-            //
+        if($exception instanceof NotFoundHttpException) {//404
+            //自定义not found界面
+            //onConnection 指定连接 onQueue 指定队列分类
+            $delay = Carbon::now()->addMinute(1);
+            //方法一
+//            $job = (new ExceptionSendMailJob($exception))->delay($delay);
+//            dispatch($job);
+
+            //方法二
+//            $job = (new ExceptionSendMailJob($exception))->delay($delay);
+//            \Bus::dispatch($job)->delay($delay);
+            return response(\SWTemplate::NotFound());
+
+        }elseif($exception instanceof FatalErrorException) {//500
+
+            return response(\SWTemplate::FatalError());
+
         }
 
-        return parent::render($request, $exception);
+        $response = parent::render($request, $exception);
+
+//        if($response->isServerError()) {//>=500&&<600
+//
+//            $delay = Carbon::now()->addMinute(1);
+//            \Bus::dispatch((new ExceptionSendMailJob($exception)));
+//        }
+
+
+        return $response;
+
     }
 
     /**

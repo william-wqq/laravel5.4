@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('QUEUE_DRIVER', 'sync'),
+    'default' => env('QUEUE_DRIVER', 'redis'),
 
     /*
     |--------------------------------------------------------------------------
@@ -31,24 +31,24 @@ return [
     'connections' => [
 
         'sync' => [
-            'driver' => 'sync',
+            'driver' => 'sync',//同步执行
         ],
 
-        'database' => [
+        'database' => [//数据库
             'driver' => 'database',
             'table' => 'jobs',
             'queue' => 'default',
             'retry_after' => 90,
         ],
 
-        'beanstalkd' => [
+        'beanstalkd' => [//第三方服务
             'driver' => 'beanstalkd',
             'host' => 'localhost',
             'queue' => 'default',
             'retry_after' => 90,
         ],
 
-        'sqs' => [
+        'sqs' => [//第三方服务
             'driver' => 'sqs',
             'key' => 'your-public-key',
             'secret' => 'your-secret-key',

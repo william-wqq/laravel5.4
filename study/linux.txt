@@ -1,3 +1,6 @@
+命令
+http://www.cnblogs.com/luying--lulu/p/5314963.html
+
 Linux操作系统Redhat系列与Debian系列
 http://blog.csdn.net/wangjianno2/article/details/51607847
 

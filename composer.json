@@ -10,11 +10,12 @@
         "barryvdh/laravel-ide-helper": "^2.3",
         "doctrine/dbal": "^2.5",
         "guzzlehttp/guzzle": "^6.3",
+        "infyomlabs/adminlte-templates": "5.4.x-dev",
+        "infyomlabs/laravel-generator": "5.4.x-dev",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
-        "infyomlabs/laravel-generator": "5.4.x-dev",
         "laravelcollective/html": "^5.4.0",
-        "infyomlabs/adminlte-templates": "5.4.x-dev"
+        "predis/predis": "~1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

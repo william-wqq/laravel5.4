@@ -2,20 +2,20 @@ github
 1160735344@qq.com
 gh123456
 
-Öªºõ
+çŸ¥ä¹
 18205162866
 zh123456
 
-ÍøÒ×
+ç½‘æ˜“
 langzi_wqq@163.com
 wy123456
-wysqm123456(ÊÚÈ¨ÂëÓÃÓÚµÚÈı·½µÇÂ¼Ê¹ÓÃ)
+wysqm123456(æˆæƒç ç”¨äºç¬¬ä¸‰æ–¹ç™»å½•ä½¿ç”¨)
 
 
 
 -----------------------------------------------
-{!! !!} Ïàµ±ÓÚ <?php echo $value; ?>
-{{ }} Ïàµ±ÓÚ <?php echo htmlspecialchars($value); ?>
+{!! !!} ç›¸å½“äº <?php echo $value; ?>
+{{ }} ç›¸å½“äº <?php echo htmlspecialchars($value); ?>
 
 -----------------------------------------------
 asset() => "http://localhost/"
@@ -24,39 +24,41 @@ asset() => "http://localhost/"
 <a href="{!! route('carrierPlayerLevels.index') !!}" class="btn btn-default">Back</a>
 
 -----------------------------------------------
-½ÅÊÖ¼ÜÉú³ÉÆ÷php artisan
+Laravel Generator
 http://laravelacademy.org/post/3716.html
-
-F:\www\backend\winwin>php artisan infyom:scaffold TestUser --fromTable --tableName=inf_test_user   Éú³ÉÖÆ¶¨Êı¾İ±íµÄÄ£ĞÍ,¿ØÖÆÆ÷,request,repository,ÊÓÍ¼
-
-F:\www\backend\winwin>php artisan ide-helper:model "App\Models\TestUser"   ²¹È«Êı¾İ¿â×Ö¶ÎĞÅÏ¢
-
-php artisan infyom:model PlayerRegisterConf --fromTable --tableName=conf_carrier_register_login  ¸ù¾İÊı¾İ¿âÉú³ÉmodelÎÄ¼ş
+php artisan infyom:scaffold TestUser --fromTable --tableName=inf_test_user   ç”Ÿæˆåˆ¶å®šæ•°æ®è¡¨çš„æ¨¡å‹,æ§åˆ¶å™¨,request,repository,è§†å›¾
 php artisan infyom:repository PlayerWithdrawLog
 
+php artisan help infyom:model æŸ¥çœ‹infyom:modelçš„ç”¨æ³•
+ç¬¬ä¸€æ­¥ï¼šphp artisan infyom:model PlayerRegisterConf --fromTable --tableName=conf_carrier_register_login  æ ¹æ®æ•°æ®åº“ç”Ÿæˆmodelæ–‡ä»¶
+ç¬¬äºŒæ­¥ï¼šphp artisan ide-helper:model "App\Models\TestUser"   æ ¹æ®è¡¨å­—æ®µç”Ÿæˆå®Œæ•´æ³¨é‡Š
 
-Artisan ÃüÁîĞĞ½Ó¿Ú¿ÉÒÔºÜÈİÒ×µØÍ¨¹ı make:provider ÃüÁîÉú³ÉĞÂµÄÌá¹©Õß£º
+è§£é‡Š:infyom:modelæ˜¯æ ¹æ®æ•°æ®åº“çš„è¡¨ç”Ÿæˆmodelæ–‡ä»¶çš„ï¼Œide-helper:modelæ˜¯æ¥è¡¥å…¨æ•°æ®åº“å­—æ®µä¿¡æ¯çš„(åˆ é™¤å­—æ®µåï¼Œä¿®æ”¹å­—æ®µåï¼Œæ³¨é‡Šä¹Ÿç›¸åº”åˆ é™¤å’Œä¿®æ”¹)
+
+
+
+Artisan å‘½ä»¤è¡Œæ¥å£å¯ä»¥å¾ˆå®¹æ˜“åœ°é€šè¿‡ make:provider å‘½ä»¤ç”Ÿæˆæ–°çš„æä¾›è€…ï¼š
 php artisan make:provider "App\Providers\--"
 php artisan make:controller "App\Http\Controllers\--"
 
 
 
-php artisan ide-helper:model ×Ô¶¯Éú³ÉÄ£ĞÍ¶ÔÓ¦µÄphpDoc
-php artisan ide-helper:meta PHPStormÖĞÈİÆ÷ÊµÀı¶ÔÓ¦µÄMeta
-php artisan ide-helper:generate ×Ô¶¯Éú³ÉLaravelÃÅÃæ¶ÔÓ¦µÄphpDocs
-php artisan storage:link  ÈíÁ¬½Ó
+php artisan ide-helper:model è‡ªåŠ¨ç”Ÿæˆæ¨¡å‹å¯¹åº”çš„phpDoc
+php artisan ide-helper:meta PHPStormä¸­å®¹å™¨å®ä¾‹å¯¹åº”çš„Meta
+php artisan ide-helper:generate è‡ªåŠ¨ç”ŸæˆLaravelé—¨é¢å¯¹åº”çš„phpDocs
+php artisan storage:link  è½¯è¿æ¥
 
-
+//æ¸…é™¤ç¼“å­˜
 php artisan cache:clear
 php artisan view:clear
 php artisan config:clear
 
 
 
-Ê¹ÓÃinfyomÔòÒªÅäÖÃconfig/infyom/laravel_generator.phpÎÄ¼şµÄpathºÍnamespace
+ä½¿ç”¨infyomåˆ™è¦é…ç½®config/infyom/laravel_generator.phpæ–‡ä»¶çš„pathå’Œnamespace
 
 
-ÑéÖ¤¹æÔò
+éªŒè¯è§„åˆ™
 return [
             'user_name' => 'required|min:4|max:11|unique:inf_player,user_name,NULL,id,carrier_id,'.$carrier_id',
             'password'  => 'required|min:6|max:16',
@@ -74,8 +76,8 @@ layer.load(2);
 
 map_array()
 -----------------------------------------------
-ajaxÄ¬ÈÏÇëÇóget,²»Ìá³«Ê¹ÓÃÍ¬²½¼´async = false;
-//ajaxÇëÇóÕû¸ö½çÃæ
+ajaxé»˜è®¤è¯·æ±‚get,ä¸æå€¡ä½¿ç”¨åŒæ­¥å³async = false;
+//ajaxè¯·æ±‚æ•´ä¸ªç•Œé¢
 function getTablePage(clickTag, showTag, url){
     $(clickTag).on('click', function(e){
 	e.preventDefault();
@@ -92,17 +94,17 @@ function getTablePage(clickTag, showTag, url){
     });
 }
 -----------------------------------------------
-a±êÇ©µÄÃªµã(anchor)
-<a href="#account-transfer">µã»÷Ìøµ½
+aæ ‡ç­¾çš„é”šç‚¹(anchor)
+<a href="#account-transfer">ç‚¹å‡»è·³åˆ°
 <div name="account-transfer">
-ÎÒÃÇÕâÀïÌøµ½<div id="account-transfer">¿ÉÄÜÊÇboostrap¿ò¼ÜµÄÔ­Òò
+æˆ‘ä»¬è¿™é‡Œè·³åˆ°<div id="account-transfer">å¯èƒ½æ˜¯boostrapæ¡†æ¶çš„åŸå› 
 
 //
 var hrefSplits = window.location.href.split('#');
 if(hrefSplits.length > 1){
 switch (hrefSplits[1]){
-    case 'account-transfer'://Æ¥ÅäÃªµã
-	$('#accountTransfer').click();//´¥·¢id="accountTransfer"µã»÷ÊÂ¼ş
+    case 'account-transfer'://åŒ¹é…é”šç‚¹
+	$('#accountTransfer').click();//è§¦å‘id="accountTransfer"ç‚¹å‡»äº‹ä»¶
 	break;
     case 'rapid-withdrawal':
 	$('#rapidWithdrawal').click();
@@ -114,16 +116,23 @@ switch (hrefSplits[1]){
     }
 }
 
------------------------------------------------
-Laravel CaptchaÑéÖ¤Âë
+-----------------------------------------------ç¬¬ä¸‰æ–¹æ’ä»¶-----------------------------------------
+1ã€Laravel CaptchaéªŒè¯ç 
 http://laravelacademy.org/post/3910.html
-php artisan vendor:publish  ×÷ÓÃ:ÔÚconfigÉú³Écaptch.php
+php artisan vendor:publish  ä½œç”¨:åœ¨configç”Ÿæˆcaptch.php
 
-Excel
-php artisan vendor:publish --provider="Maatwebsite\Excel\ExcelServiceProvider" Ö¸¶¨ÔÚconfigÄ¿Â¼ÏÂÉú³É¸Ã·şÎñµÄÅäÖÃÎÄ¼şexcel.php
+2ã€Excel
+php artisan vendor:publish --provider="Maatwebsite\Excel\ExcelServiceProvider" æŒ‡å®šåœ¨configç›®å½•ä¸‹ç”Ÿæˆè¯¥æœåŠ¡çš„é…ç½®æ–‡ä»¶excel.php
 
-Laraval IDE ×Ô¶¯²¹È«ÖúÊÖ£ºLaravel IDE Helper Generator 
+3ã€Laraval IDE è‡ªåŠ¨è¡¥å…¨åŠ©æ‰‹ï¼šLaravel IDE Helper Generator 
 http://laravelacademy.org/post/4202.html
+
+4ã€Debugger: å‰ç«¯bugè°ƒè¯•åˆ†æé¡µé¢
+
+5ã€infyom/laravel-generator :å¯æ ¹æ®è¡¨ç”Ÿæˆå®Œæ•´model
+php artisan vendor:publish --provider="InfyOm\Generator\InfyOmGeneratorServiceProvider" ç”Ÿæˆconfig/infyom/laraver_generator.php
+
+
 
 
 

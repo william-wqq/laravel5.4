@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\CacheContantPrefixDefine;
+use App\Events\TestEvent;
 use App\Facades\SLogFacade;
 use App\Http\Requests\TestRequest;
+use App\Jobs\ExceptionSendMailJob;
+use App\Listeners\UserEventSubscriber;
 use App\Mail\SendMail;
+use Illuminate\Auth\Events\Login;
+use Illuminate\Auth\Events\Logout;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ExampleController;
@@ -36,19 +42,95 @@ class TestController extends Controller
 
         $col = $col->map(function($item){
             return pow($item, 2);
-        })->all();
+        });
         //dd($col);
 
-        $user = User::all()->all();
 
-        array_walk($user, function(User &$item){
-            $item->age =  $item->age+100;
-            \SLog::info($item->age);
+        //方法一
+        $user = User::all();
+        $user->each(function(User $item){
+            \SLog::info($item->email);
         });
-        dd($user);
 
 
+        //方法二
+//        $user = User::all()->all();
+//        array_walk($user, function(User &$item){
+//            $item->age =  $item->age+100;
+//            \SLog::info($item->age);
+//        });
 
+
+        $collection = collect([
+            ['name' => 'Desk', 'colors' => ['Black', 'Mahogany']],
+            ['name' => 'Chair', 'colors' => ['Black']],
+            ['name' => 'Bookcase', 'colors' => ['Red', 'Beige', 'Brown']],
+        ]);
+
+        $sorted = $collection->sortBy(function ($product, $key) {
+            return count($product['colors']);
+        }, SORT_REGULAR, true);
+
+        //$sorted->get('name');
+        dd($sorted->values()->pluck('name'));
+
+    }
+
+    /**
+     * 登陆
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function login()
+    {
+
+
+        //登陆成功后缓存个人信息
+        $user = User::findOrFail(1);
+
+        //事件监听器
+        //方法一
+        //event(new TestEvent($user));
+
+        //方法二
+        //\Event::fire(new TestEvent($user));
+
+        //订阅者
+        \Event::fire(new Login($user, true));
+
+        echo 'login success';
+
+        //return redirect()->route('info/{id}', ['id' => 1]);
+
+    }
+
+
+    /**
+     * 个人中心
+     * @param $userId int
+     */
+    public function info($userId)
+    {
+        $key = CacheContantPrefixDefine::User_ACCOUNT_INFO_PREFIX.$userId;
+        if(\Cache::has($key)) {
+            $user = \Cache::get($key);
+            dd($user);
+        }
+
+        echo 'nothing';
+
+    }
+
+    /**
+     * 退出
+     * @param $userId int
+     */
+    public function logout()
+    {
+        //\Auth::logout();
+        $user = User::findOrFail(1);
+        \Event::fire(new Logout($user));
+
+        echo 'logout success';
     }
 
     /**
@@ -65,19 +147,35 @@ class TestController extends Controller
         //$toArray = config('mail.to');
 
         //第三步 从数据库中取数据
-        $userAll = User::all()->toArray();
 
-        //dd($userAll->items);
-        try {
-            array_walk($userAll, function ($user) {
-                //\Mail::to($user['email'])->send(new SendMail($user['username']));
-                Log::info('发送邮件成功',[$user['username'] => $user['email']]);
-            });
+        /**
+         * 简单的发邮件
+         */
+//        $userAll = User::all()->all();
+//        array_walk($userAll, function(User $user){
+//            \Mail::send('errors.404', $data = [], function($message) use ($user) {
+//                $message->to($user->email)->subject('Laravel 5.4');
+//            });
+//        });
 
-        } catch (\Exception $e) {
-            Log::error('发送邮件异常', ['error' => $e->getMessage()]);
-            return 'error';
-        }
+
+        /**
+         * 生成mailables类
+         */
+//        $userAll = User::all()->all();
+//        try {
+//            array_walk($userAll, function (User $user) {
+//                \Mail::to($user->email)->send(new SendMail($user));
+//                Log::info('发送邮件成功',[$user->username => $user->email]);
+//            });
+//
+//        } catch (\Exception $e) {
+//            Log::error('发送邮件异常', ['error' => $e->getMessage()]);
+//            return 'error';
+//        }
+
+
+
 
         //第四步 队列发邮件
 

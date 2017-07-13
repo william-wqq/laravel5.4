@@ -81,3 +81,6 @@ https://lvwenhan.co
 
 关键字
 解耦、依赖注入DI、控制反转IoC、IoC容器<=>服务容器（Containter类）
+
+解耦：http://www.cnblogs.com/sweng/p/6430374.html
+依赖注入DI、控制反转IoC：https://segmentfault.com/a/1190000002411255

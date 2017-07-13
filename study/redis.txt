@@ -1,0 +1,2 @@
+redis学习网站
+http://www.runoob.com/redis/redis-install.html

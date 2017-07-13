@@ -1,6 +1,28 @@
-ñ·¶¥´©Ô½(2017/6/12  30Ìì)
+å­¦ä¹ ç½‘ç«™
+1ã€github
+2ã€Stack OverFlow
+
+ç©¹é¡¶ç©¿è¶Š(2017/6/12  30å¤©)
 1160735344@qq.com
 qdcy123456
+
+//å¼€å‘åœ¨çº¿å·¥å…·
+http://www.toutiao.com/i6404764595558285825/
+
+//laravelæ¡†æ¶
+https://laravel-china.org/
+http://www.laravist.com
+
+//Laravel ç²¾é€‰èµ„æºå¤§å…¨ï¼ˆæŒç»­æ›´æ–°ï¼‰
+http://laravelacademy.org/post/153.html
+
+//5.3æ–‡æ¡£
+http://d.laravel-china.org/docs/5.3
+
+//phpStormé…ç½®
+http://blog.csdn.net/fenglailea/article/details/12166617
+http://blog.csdn.net/fenglailea/article/details/38311673
+
 
 git
 http://www.liaoxuefeng.com
@@ -9,58 +31,53 @@ https://git-scm.com/book/zh/v1/%E8%B5%B7%E6%AD%A5
 https://almsaeedstudio.com/premium
 
 
-//¿ª·¢ÔÚÏß¹¤¾ß
+//å¼€å‘åœ¨çº¿å·¥å…·
 http://www.toutiao.com/i6404764595558285825/
 
-//laravel¿ò¼Ü
+//laravelæ¡†æ¶
 https://laravel-china.org/
 http://www.laravist.com
 
 //segmentfault
 https://segmentfault.com/
 
-//pusher¹ã²¥ÏµÍ³
+//pusherå¹¿æ’­ç³»ç»Ÿ
 https://pusher-community.github.io/real-time-laravel/
 
-http://oomusou.io/phpstorm/phpstorm-phpdoc/ phpDoc×¢½â
+http://oomusou.io/phpstorm/phpstorm-phpdoc/ phpDocæ³¨è§£
 
-https://divinglaravel.com/ (Ñ§Ï°ÖĞ)
+https://divinglaravel.com/ (å­¦ä¹ ä¸­)
 
-//Laravel ¾«Ñ¡×ÊÔ´´óÈ«£¨³ÖĞø¸üĞÂ£©
+//Laravel ç²¾é€‰èµ„æºå¤§å…¨ï¼ˆæŒç»­æ›´æ–°ï¼‰
 http://laravelacademy.org/post/153.html
 
-//5.3ÎÄµµ
+//5.3æ–‡æ¡£
 http://d.laravel-china.org/docs/5.3
 
-//phpStormÅäÖÃ
+//phpStormé…ç½®
 http://blog.csdn.net/fenglailea/article/details/12166617
 http://blog.csdn.net/fenglailea/article/details/38311673
 
-
-Ñ§Ï°ÍøÕ¾
-1¡¢github
-2¡¢Stack OverFlow
-
-3¡¢laravelµÄÆô¶¯¹ı³Ì½âÎö
+3ã€laravelçš„å¯åŠ¨è¿‡ç¨‹è§£æ
 http://www.cnblogs.com/lpfuture/p/5578274.html
 http://blog.csdn.net/fationyyk/article/details/50971737
 
-4¡¢Larvel ÊÖ²áÊáÀí
+4ã€Larvel æ‰‹å†Œæ¢³ç†
 http://blog.csdn.net/csscar/article/details/50480583/
 
-5¡¢ÏÂÔØÁ¿×î¸ßµÄ 100 ¸ö Laravel À©Õ¹°üÍÆ¼ö
+5ã€ä¸‹è½½é‡æœ€é«˜çš„ 100 ä¸ª Laravel æ‰©å±•åŒ…æ¨è
 https://laravel-china.org/topics/2530/the-highest-amount-of-downloads-of-the-100-laravel-extensions-recommended
 
-6¡¢×Ô¶¨ÒåartisanÃüÁî
+6ã€è‡ªå®šä¹‰artisanå‘½ä»¤
 http://www.cnblogs.com/Alex-sk/p/6593257.html
 
 http://laravelacademy.org/post/1374.html
 
 
-7.Å£ÈËµÄgithub)(2017-7-6 17:44:42)
+7.ç‰›äººçš„github)(2017-7-6 17:44:42)
 https://github.com/johnlui
 https://lvwenhan.co
 
 
-¹Ø¼ü×Ö
-½âñî¡¢ÒÀÀµ×¢ÈëDI¡¢¿ØÖÆ·´×ªIoC¡¢IoCÈİÆ÷<=>·şÎñÈİÆ÷£¨ContainterÀà£©
+å…³é”®å­—
+è§£è€¦ã€ä¾èµ–æ³¨å…¥DIã€æ§åˆ¶åè½¬IoCã€IoCå®¹å™¨<=>æœåŠ¡å®¹å™¨ï¼ˆContainterç±»ï¼‰

@@ -31,6 +31,8 @@ class TestController extends Controller
 
     }
 
+    public function
+
     /**
      * 集合
      *

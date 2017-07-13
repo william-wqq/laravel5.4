@@ -1,0 +1,89 @@
+Thursday cloudy night
+
+一、缓存种类
+二、数据库缓存
+三、Redis缓存
+四、缓存辅助函数
+
+
+一、***************
+
+缓存配置信息位于 config/cache.php
+laravel支持的缓存类型apc、array、database、file(默认)、memcached、redis;现在用的比较多的是memcached、和redis
+
+二、***************
+
+1、修改配置文件
+    cache.php   'default' => 'database',
+    或
+    .env CACHE_DRIVER=database
+
+2、生成缓存表
+php artisan cache:table  生成一个有合适数据表结构的 migration
+
+    Schema::create('cache', function (Blueprint $table) {
+        $table->engine = 'InnoDB';//引擎
+        $table->charset = 'utf8';//字符集
+        $table->collation = 'utf8_general_ci';//排序规则
+        $table->string('key')->unique();
+        $table->text('value');
+        $table->integer('expiration');
+    });
+
+php artisan migrate 迁移到数据库
+
+三、***************
+
+1、修改配置文件
+    cache.php
+        'default' => 'redis',
+    或
+    .env
+        CACHE_DRIVER=redis
+
+        REDIS_HOST=127.0.0.1
+        REDIS_PASSWORD=null
+        REDIS_PORT=6379
+
+2、安装redis扩展包
+    composer require predis/predis
+    或
+    omposer.json的require中引入"predis/predis": "~1.0"   然后composer update
+
+3、下载地址：https://github.com/MSOpenTech/redis/releases
+    下载：Redis-x64-3.2.100.zip解压后运行redis-server.exe就可以使用redis缓存了
+
+四、***************
+
+存储项目到缓存中
+    Cache::put('key', 'value', $minutes);
+    Cache::add('key', 'value', $minutes);   把暂时不存在于缓存中的缓存项放入缓存，如果存放成功将返回 true ，否则返回 false
+    Cache::forever('key', 'value');         将缓存项永久存入缓存中，因为这些缓存项不会过期，所以必须通过 forget 方法手动删除
+
+从缓存中获取项目
+
+    //是否存在
+        Cache::has('key')用来检查一个项目是否存在于缓存中
+
+    //获取
+        $value = Cache::get('key');
+        $value = Cache::get('key', 'default');
+        $value = Cache::get('key', function () {
+            return DB::table(...)->get();
+        });
+
+    //获取和更新
+        $value = Cache::remember('users', $minutes, function () {
+            return DB::table('users')->get();
+        });
+
+    //获取和删除
+        $value = Cache::pull('key');
+
+从缓存中移除项目
+Cache::forget('key');forget() 从缓存中移除一个项目
+Cache::flush();               清空所有缓存
+
+
+
+

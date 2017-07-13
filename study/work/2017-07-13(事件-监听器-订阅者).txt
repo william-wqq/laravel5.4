@@ -1,4 +1,4 @@
-Thursday  cloudy
+Thursday  cloudy  afternoon
 
 一、事件、事件监听者
 二、队列事件监听器
@@ -26,7 +26,7 @@ Laravel 事件机制实现了一个简单的观察者模式，让我们可以订
     ];
     php artisan event:generate 一键生成
 2、定义事件
-3、定义监听器
+3、定义监听器(handle方法)
 4、触发事件
     event(new TestEvent(...))
     Event::fire(new TestEvent(...))

@@ -8,7 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendMail extends Mailable
+class SendMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -18,6 +18,8 @@ class SendMail extends Mailable
      * @var
      */
     public $user;
+
+    public $tries = 2;
 
     /**
      * Create a new message instance.
@@ -36,8 +38,13 @@ class SendMail extends Mailable
      */
     public function build()
     {
+        $user = $this->user;
+        //\SLog::info('发送邮件成功',[$user->username => $user->email]);
         return $this->view('emails.email')
                     ->subject('Laravel')
-                    ->with('user', $this->user);
+                    ->with('user', $user);
+
+
     }
+
 }

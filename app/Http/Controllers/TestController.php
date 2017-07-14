@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\ExampleController;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
+use Carbon\Carbon;
 
 class TestController extends Controller
 {
@@ -170,17 +171,30 @@ class TestController extends Controller
         /**
          * 生成mailables类
          */
-//        $userAll = User::all()->all();
-//        try {
-//            array_walk($userAll, function (User $user) {
-//                \Mail::to($user->email)->send(new SendMail($user));
-//                Log::info('发送邮件成功',[$user->username => $user->email]);
-//            });
-//
-//        } catch (\Exception $e) {
-//            Log::error('发送邮件异常', ['error' => $e->getMessage()]);
-//            return 'error';
-//        }
+        $userAll = User::all()->all();
+        $user = User::findOrFail(2);
+        try {
+            array_walk($userAll, function (User $user) {
+                //正常
+                $mailable = (new SendMail($user))->onConnection('redis')->onQueue('emails');
+                \Mail::to($user->email)->send($mailable);
+
+                //队列
+                //\Mail::to($user->email)->queue(new SendMail($user));
+
+                //队列连接和连接名称
+                //$mailable = (new SendMail($user))->onConnection('redis')->onQueue('emails')->delay(60);
+                //\Mail::to($user->email)->queue($mailable);
+
+                //延迟
+//                $delay = Carbon::now()->addMinute(1);
+//                \Mail::to($user->email)->later($delay, $mailable);
+            });
+
+        } catch (\Exception $e) {
+            \SLog::error('发送邮件异常', ['error' => $e->getMessage()]);
+            return 'error';
+        }
 
 
 

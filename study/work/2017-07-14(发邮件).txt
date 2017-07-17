@@ -188,8 +188,15 @@ API 驱动都需要 Guzzle HTTP 函数库
 
 
     问题解决：
-    1、php artisan queue:failed-table
-        生成failed_jobs表记录队列中失败的记录
+    1、
+        创建一个 failed_jobs 表的迁移
+            php artisan queue:failed-table
+
+        生成表
+            php artisan migrate
+
+        加重试次数限制
+            php artisan queue:listen connection-name --tries=3
 
     2、在AppServiceProvider添加
 

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Entities\CacheContantPrefixDefine;
+use App\Events\Event;
 use App\Events\TestEvent;
 use App\Facades\SLogFacade;
 use App\Http\Requests\TestRequest;
 use App\Jobs\ExceptionSendMailJob;
+use App\Jobs\TestJob;
 use App\Listeners\UserEventSubscriber;
 use App\Mail\SendMail;
 use Illuminate\Auth\Events\Login;
@@ -37,6 +39,29 @@ class TestController extends Controller
      */
     public function supportFunc()
     {
+
+    }
+
+    /**
+     * 事物
+     */
+    public function event()
+    {
+        $user = User::findOrFail(1);
+        \Event::fire(new Event($user));
+        echo "队列化事物监听器";
+    }
+
+    /**
+     * 队列
+     */
+    public function queue()
+    {
+        $user = User::findOrFail(2);
+
+        dispatch((new TestJob($user)));
+
+        echo '成功加入队列';
 
     }
 

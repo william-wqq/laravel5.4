@@ -1,0 +1,252 @@
+Saturday Fined(so hot)  night
+
+一、简介
+二、队列驱动类型
+三、配置
+四、生成job类
+五、推送任务
+六、启动队列监听
+七、其他应用场景
+八、队列处理失败
+九、总结
+十、参考
+
+
+一、简介*************
+
+Laravel 队列为不同的后台队列服务提供统一的 API ， 例如 Beanstalk，Amazon SQS， Redis，甚至其他基于关系型数据库的队列。
+队列的目的是将耗时的任务延时处理，比如发送邮件，从而大幅度缩短Web请求和相应的时间。
+
+
+二、队列驱动类型*************
+
+    种类：
+        database(数据库)
+        Redis
+        sync(同步)
+        Beanstalkd
+        Amazon SQS
+        null(放弃队列)
+
+    这里涉及：
+        sync(默认)
+        database(简介)
+        redis(重点)
+
+
+三、配置*************
+
+    config/queue.php
+        'default' => '驱动名',
+        'connections' => [
+
+                'sync' => [
+                    'driver' => 'sync',//同步执行
+                ],
+
+                'database' => [//数据库
+                    'driver' => 'database',
+                    'table' => 'jobs',
+                    'queue' => 'default',//默认队列名称为default
+                    'retry_after' => 90,
+                ],
+
+                'redis' => [
+                            'driver' => 'redis',
+                            'connection' => 'default',//默认连接名
+                            'queue' => 'default',
+                            'retry_after' => 90,
+                ],
+        ],
+        'failed' => [//队列处理失败表
+                'database' => env('DB_CONNECTION', 'mysql'),
+                'table' => 'failed_jobs',
+        ],
+
+    或者
+
+    .env
+        QUEUE_DRIVER=驱动名
+
+
+四、生成job类*************
+
+默认情况下，应用的所有队列任务都存放在app/Jobs 目录
+php artisan make:job TestJob
+
+    class TestJob implements ShouldQueue
+    {
+        use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+        //自定义参数
+        public $connection;//redis
+
+        public $queue = 'listener';
+
+        public $delay = 120;
+
+        public $tries = 5;
+
+        public $timeout = 120;
+
+        public function handle()
+        {
+            //job处理逻辑
+        }
+    }
+
+    (1)数据库队列
+        1、修改配置
+            驱动名=database
+        2、创建表迁移
+            php artisan queue:table          创建时间_crate_jobs_table
+        3、CreateJobsTable up方法添加
+            $table->engine = 'InnoDB';//引擎
+            $table->charset = 'utf8';//字符集
+            $table->collation = 'utf8_general_ci';//排序规则
+        4、迁移表
+            php artisan migrate              生成jobs表
+
+    (2)redis队列
+        1、修改配置
+            驱动名=database
+        2、下载redis包
+            composer require predis/predis ~1.0
+            或者
+            composer.json 在require中添加
+                predis/predis ~1.0
+            composer update
+
+
+五、推送任务*************
+
+    推送方法
+        1、dispatch(new TestJob())
+        2、\Bus::dispatch(new TestJob())
+
+    控制器：
+        dispatch(new TestJob())
+
+        dispatch((new TestJob())->delay(60))//队列延迟
+
+        dispatch((new TestJob())->onConnection('redis'))//指定队列连接
+
+        dispatch((new TestJob())->onQueue('jobs'))//指定队列名称
+
+        $this->dispatchFrom('App\Jobs\ProcessOrder', $request, [附加的参数]);//从请求中分发任务
+
+
+六、启动队列监听*************
+
+    1、命令行：
+        php artisan queue:listen connection_name --queue=queue_name
+
+        php artisan queue:listen connection //指定连接,也就是不同队列类型,如database,redis,在queue.php中配置
+
+        php artisan queue:listen --queue=high,low //指定队列优先级,比如有限处理某队列,多个队列用,分割
+
+        php artisan queue:listen --timeout=60 //每个任务运行最大时间不超过60秒
+
+        php artisan queue:listen --sleep=5 //没有任务的时候休眠5秒
+
+        php artisan queue:listen --tries=3 //失败任务尝试3次
+
+    2、listen和work的区别：
+
+        queue:listen 监听队列请求，只要运行着，就能一直接受请求，除非手动终止；
+        queue:work   好像和listen一样，并不是网上说只执行一次队列请求
+
+        queue:work  --once   只执行下一次队列请求, 当请求执行完成后就终止；
+        queue:work  --daemon 和不加参数的work貌似一样
+
+    3、注意：
+        job类中自定义参数优先级大于命令行指定参数
+
+
+七、其他应用场景*************
+
+    1、队列事件监听器   2017-07-13(事件-监听器-订阅者)
+
+        前提是实现ShouldQueue类
+
+        class TestEventListener implements ShouldQueue
+        {
+            //也可自定义
+            public $connection;
+            public $queue;
+            public $delay = 120;
+            public $tries = 5;
+            public $timeout = 120;
+
+            public function failed()
+            {
+                //
+            }
+        }
+
+    2、邮件mailable类   2017-07-14(发邮件)
+        class SendMail extends Mailable implements ShouldQueue
+        {
+            //也可自定义
+            public $connection;
+            public $queue;
+            public $delay = 120;
+            public $tries = 5;
+            public $timeout = 120;
+
+            //没有failed方法
+        }
+
+    小结：
+        1、队列事件监听器只有通过 自定义参数 来指定加入队列不同连接、名称、延迟的任务，有队列处理失败函数
+
+        2、邮件mailable类除此之外，在控制器中有其他辅助函数来加入队列不同连接、名称、延迟的任务，没有队列处理失败函数
+            $mailable = (new Mailable())->onConnection()->onQueue()->delay()
+            queue($mailable)
+            later($delay, new Mailable())//延迟
+
+
+八、队列处理失败*************
+
+    1、failed方法
+
+    2、failed_jobs表
+
+    3、在AppServiceProvider添加
+
+        \Queue::failing(function($job){
+            \SLog::error('队列处理失败', ['job' => $job]);
+        });
+
+
+九、总结*************
+
+    1、刚开是使用队列的时候不知道sync是同步队列，所以觉得队列没有延迟的功能，so bad!!!
+
+    2、然后又使用数据库队列，感觉很好玩，通过命令行来执行相应的连接、名称、延迟的队列，成就感很足，虽然只是会使用，good feeling!!!
+
+    3、接触到redis,一直觉得很高大上的东西，之前一直以为是为缓存服务的，没想到也可以用到队列服务.
+        后来想清空队列，运行php artisan cache:clear，结果真的清空了队列，难道队列也是属于缓存的？
+
+    4、队列一般用于耗时的任务，比如发邮件
+
+
+十、参考*************
+    http://www.cnblogs.com/itfenqing/p/6934184.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -54,10 +54,11 @@ class SendEmails extends Command
                     return $this->error('user not exist');
                 }
 
-                if ($this->confirm('are you sure send a mail to user ' . $userId . ' ?')) {
+                //if ($this->confirm('are you sure send a mail to user ' . $userId . ' ?')) {
                     //\Mail::to($user[0]->email)->send(new SendMail($user[0]->username));
+                    \SLog::info('调度命令发邮件');
                     return $this->info('send a mail success');
-                }
+                //}
             }
 
         } elseif ($type == 'all') {

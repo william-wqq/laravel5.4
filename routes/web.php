@@ -31,5 +31,9 @@ Route::get('/logout', ['uses' => 'TestController@logout'])->name('logout');
 Route::get('/info/{id}', ['uses' => 'TestController@info'])->name('info/{id}');
 
 
-
+//事物
+Route::get('/event', ['uses' => 'TestController@event'])->name('event');
+//发邮件
 Route::get('/mail', ['uses' => 'TestController@sendMail'])->name('mail');
+//队列
+Route::get('/queue', ['uses' => 'TestController@queue'])->name('queue');

@@ -6,7 +6,7 @@ use App\Events\Event;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class EventListener
+class EventListener implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -26,6 +26,6 @@ class EventListener
      */
     public function handle(Event $event)
     {
-        //
+        \SLog::info('事物');
     }
 }

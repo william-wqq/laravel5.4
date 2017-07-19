@@ -1,0 +1,89 @@
+1.Bower简介
+    官网：https://bower.io/
+    Bower是一个客户端技术的软件包管理器，它可用于搜索、安装和卸载如JavaScript、HTML、CSS之类的网络资源。
+
+2.Windows下安装Bower
+    安装Bower首先需要安装node及npm。
+    下载node，地址https://nodejs.org/en/，下载最新的版本，该版本中包含了node及npm，下载后直接安装即可。
+    安装完成之后执行 node -v命令，与npm -v命令如果能正常打印版本号说明安装成功。
+
+    安装Bower
+        npm install -g bower
+
+3.在项目下创建.bowerrc
+    {
+      "directory" : "public/js/lib"
+    }
+
+    //规定库要安装的路径
+
+4.命令行进入项目目录中，初始化
+    bower init
+    生成一个bower.json文件
+
+    {
+      "name": "langzi",
+      "description": "",
+      "main": "",
+      "authors": [
+        "william <william_wqq@163.com>"
+      ],
+      "license": "MIT",
+      "homepage": "https://github.com/williamwqq/laravel5.4",
+      "private": true,
+      "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "public/js/lib",
+        "test",
+        "tests"
+      ]
+    }
+
+4.通过Bower安装jquery
+
+    (1)、安装
+        bower install jquery --save
+        然后bower就会从远程下载jquery最新版本到你的js/lib目录下
+        其中--save参数是保存配置到你的bower.json，你会发现bower.json文件已经多了一行：
+
+        "dependencies": {
+            "jquery": "^3.2.1"
+          }
+
+        问题：
+        命令进行安装，如果出现bower ENOGIT        git is not installed or not in the PATH错误提示，说明没有安装git或者没有配置环境变量。
+
+            解决方法一：配置git环境变量到PATH。
+
+            方法二：直接到git bash执行该命令。
+            我本地安装的github for Windows地址：https://desktop.github.com/。
+            进入到git shell执行命令。
+
+    (2)、查看
+        bower info jquery
+        会看到jquery的bower.json的信息，和可用的版本信息
+
+    (3)、更新
+        上面安装的是最新版的高版本jquery，假如想要兼容低版本浏览器的呢？
+        已经查到兼容低版本浏览器的jquery版本为1.11.3，下面直接修改bower.json文件中的jquery版本号如下：
+
+          "dependencies": {
+            "jquery": "~1.11.3"
+          }
+        然后执行如下命令：
+        bower update
+        bower就会为你切换jquery的版本了
+
+    (4)、查找
+        还有一个很重要的功能，就是包的查找，比如我想要安装bootstrap的某个插件，但是记不住名字了，就可以直接在命令行输入：
+        bower search bootstrap
+        bower就会列出包含字符串bootstrap的可用包了
+
+    (5)、卸载
+        卸载包可以使用uninstall 命令：
+        bower uninstall jquery
+
+5、扩展
+https://segmentfault.com/a/1190000002971135

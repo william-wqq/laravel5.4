@@ -10,24 +10,27 @@ Laravel 事件机制实现了一个简单的观察者模式，让我们可以订
 
 一、***********
 
-1、注册事件
-    php artisan make:event TestEvent
-注册监听器
-    php artisan make:listener TestEventListener
+1、
+    (1)注册事件
+        php artisan make:event TestEvent
+    (2)注册监听器
+        php artisan make:listener TestEventListener
+    (3)手动创建每个事件和监听器是很麻烦的。简单的方式在EventServiceProvider添加事件和事件监听者映射关系
+        Event和Listener绑定并注册
 
-手动创建每个事件和监听器是很麻烦的。简单的方式在EventServiceProvider添加事件和事件监听者映射关系
+        protected $listen = [
+                'App\Events\TestEvent' => [
+                    'App\Listeners\TestEventListener'
+                ]
+        ];
+        php artisan event:generate 一键生成
 
-    Event和Listener绑定并注册
-
-    protected $listen = [
-            'App\Events\TestEvent' => [
-                'App\Listeners\TestEventListener'
-            ]
-    ];
-    php artisan event:generate 一键生成
 2、定义事件
+
 3、定义监听器(handle方法)
+
 4、触发事件
+
     event(new TestEvent(...))
     Event::fire(new TestEvent(...))
 
@@ -38,6 +41,7 @@ Laravel 事件机制实现了一个简单的观察者模式，让我们可以订
     {
         //
     }
+
 2、当事件被监听器调用时， 事件分发器会使用 Laravel 的 队列系统 自动将它进行队列化；可以自定义队列的连接和名称、延迟、超时、最大尝试次数
     /**
      * 队列化任务使用的连接名称

@@ -1,0 +1,213 @@
+Friday Fine Day morning and night
+
+一、网易邮箱
+二、composer下载包
+三、配置
+四、mailables发邮件
+五、事件发邮件
+六、队列发邮件
+七、总结
+
+一、**********网易邮箱
+
+    1、http://mail.163.com/注册账号
+        langzi_wqq@163.com
+        wy123456
+
+    2、设置=>POP3/SMTP/IMAP 全部开启
+
+    3、启用授权码可在第三方客户端登陆(Foxail)
+        wysqm123456
+
+
+二、**********composer下载包
+
+Laravel 基于 SwiftMailer 函数库提供了一套干净、简洁的邮件 API ，Laravel 为 SMTP 、Mailgun 、SparkPost 、 Amazon SES 、 PHP 的 mail 函数及 sendmail 提供驱动
+API 驱动都需要 Guzzle HTTP 函数库
+    composer require guzzlehttp/guzzle
+
+
+三、**********配置
+
+    .env
+        MAIL_DRIVER=smtp
+        MAIL_HOST=smtp.163.com
+        MAIL_PORT=25
+        MAIL_USERNAME=langzi_wqq@163.com
+        MAIL_PASSWORD=wysqm123456
+        MAIL_ENCRYPTION=tls
+    或者
+    config/mail.php
+        'driver' => 'smtp',
+        'host' => 'smtp.163.com',
+        'port' => 25,
+        'from' => [
+             'address' => 'langzi_wqq@163.com',
+             'name' => '浪子163',
+         ],
+        'encryption' => 'tls',
+        'username' => 'langzi_wqq@163.com',
+        'password' => 'wysqm123456',//邮件授权码
+
+
+四、**********mailables发邮件
+
+     1、创建mailables类(App\Mail)
+        php artisan make:mail SendMail
+
+     2、编辑创建mailables类
+        class SendMail extends Mailable
+        {
+            use Queueable, SerializesModels;
+
+            public function __construct(User $user)
+            {
+                $this->user = $user;
+            }
+
+            public function build()
+            {
+                return $this->view('emails.email')//邮件模板(resources/views/emails/email.blade.php)
+                            ->subject('Laravel')//主题
+                            ->with('user', $this->user)//数据
+                            ->attach('/path/to/file');//附件
+            }
+        }
+
+     3、发邮件
+         class TestController extends Controller
+         {
+            //初级
+            public function simpleSendMail()
+            {
+                \Mail::send('emails.email', $data = [], function($message) use ($user) {
+                    $message->to($user->email)->subject('Laravel 5.4');
+                });
+            }
+
+            //高级(mailables类)
+            public function sendMail()
+            {
+                $user = User::findOrFail($userId);
+                \Mail::to($user->email)
+                    ->cc($moreUsers)//可选
+                    ->bcc($evenMoreUsers)//可选
+                    ->queue(new SendMail($user))//加入队列(可选)
+                    ->later(new SendMail($user))//延迟发送(可选)
+                    ->send(new SendMail($user));
+
+                    //-------注意 send、later、send三者不能同时存在------//
+            }
+         }
+
+五、**********
+
+    2017-07-13(事件-监听器-订阅者)
+    //进阶
+    protected $listen = [
+        'Illuminate\Mail\Events\SendMailEvent' => [
+            'App\Listeners\SendMailEventListener',
+        ],
+    ];
+
+
+
+六、**********
+
+    1、simple
+
+        (1)
+            控制器：
+                \Mail::to($user->email)->queue(new SendMail($user))//默认队列
+
+                \Mail::to($user->email)->queue((new SendMail($user))->delay(60));//队列延迟
+                或者
+                \Mail::to($user->email)->later($delay, new SendMail($user))
+
+                \Mail::to($user->email)->queue((new SendMail($user))->onConnection('redis'));//指定连接
+
+                \Mail::to($user->email)->queue((new SendMail($user))->onQueue('emails'));//指定队列名称
+
+            问题：
+                以上必须有真实邮件发送(把mailables类方法build中的 发送邮件模板代码注释，则会导致邮件发送失败)，
+                不然会一直去执行这个队列任务,好像能检测到你到底有没有发邮件一样。但是问题来了，
+                1、如果邮件一直发送不出去，它将一直执行下去，岂不是浪费资源，和服务器的性能
+                2、假设我们不让它一直执行，设置的最大尝试次数 php artisan queue:work --tries=5，那该如何记录失败的邮箱呢？我试过failed()不行
+
+
+
+
+        (2)
+            mailables类实现shouldQueue:
+                如果你的 mailable 类想要默认使用队列，你可以在类中实现 ShouldQueue 接口契约。现在，即便你调用 send 方法来发送邮件， mailable 类仍将邮件放入队列中发送
+
+                use Illuminate\Contracts\Queue\ShouldQueue;
+                class OrderShipped extends Mailable implements ShouldQueue
+                {
+                    //可自定义参数
+                    public $connection;
+
+                    public $queue ;
+
+                    public $delay = 120;
+
+                    public $tries = 5;
+
+                    public $timeout = 120;
+                }
+
+            控制器：
+                \Mail::to($user->email)->queue(new SendMail($user))//默认队列
+
+                \Mail::to($user->email)->send((new SendMail($user))->delay(60));//队列延迟
+
+                \Mail::to($user->email)->send((new SendMail($user))->onConnection('redis'));//指定连接
+
+                \Mail::to($user->email)->send((new SendMail($user))->onQueue('emails'));//指定队列名称
+
+            问题：
+                1、自定义参数的优先级高于命令参数
+                2、队列失败处理没有指定方法
+
+    2、advance
+       队列,下节我们在讲
+
+
+
+七、**********
+
+    很多地方用到发邮件，比如注册成功、密码找回、重置密码
+
+    初级
+       简单的发邮件(耗时)
+    进阶
+       事件处理邮件(逻辑清晰)
+    高级
+       队列处理耗时(延迟发送)
+
+
+
+    问题解决：
+    1、
+        创建一个 failed_jobs 表的迁移
+            php artisan queue:failed-table
+
+        生成表
+            php artisan migrate
+
+        加重试次数限制
+            php artisan queue:listen connection-name --tries=3
+
+    2、在AppServiceProvider添加
+
+        \Queue::failing(function($job){
+            \SLog::error('队列处理失败', ['job' => $job]);
+        });
+
+    以上两个可以很好的解决队列处理失败的记录
+
+
+
+
+
+

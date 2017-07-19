@@ -53,9 +53,9 @@ $app->singleton(
 */
 
 $app->configureMonologUsing(function(Monolog\Logger $monolog) use($app) {
-    return $monolog->pushHandler(new \Monolog\Handler\RotatingFileHandler($app->storagePath().'/logs/IDMS_ERROR.log',5,\Monolog\Logger::ERROR))
+    return $monolog->pushHandler(new \Monolog\Handler\RotatingFileHandler($app->storagePath().'/logs/ERROR.log',5,\Monolog\Logger::ERROR))
         ->pushHandler(
-            new \Monolog\Handler\RotatingFileHandler($app->storagePath().'/logs/IDMS_INFO.log',5,\Monolog\Logger::INFO)
+            new \Monolog\Handler\RotatingFileHandler($app->storagePath().'/logs/INFO.log',5,\Monolog\Logger::INFO)
         );
 });
 

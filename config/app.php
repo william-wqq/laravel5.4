@@ -173,7 +173,10 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        /**
+         * 2017-07-17 16:57:47 广播系统
+         */
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
@@ -185,8 +188,10 @@ return [
         App\Providers\SWTemplateServiceProvider::class,
         /*自定义日志 2017-07-10*/
         App\Providers\SLogServiceProvider::class,
-        /* InfyOmGenerator 2017-7-7*/
+        /*InfyOmGenerator 2017-7-7*/
         InfyOm\Generator\InfyOmGeneratorServiceProvider::class,
+        /*Pusher 2017-07-17*/
+        Vinkla\Pusher\PusherServiceProvider::class,
 
     ],
 

@@ -21,6 +21,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\TestEvent' => [//登陆事件
             'App\Listeners\TestEventListener'
+        ],
+        'App\Events\PusherEvent' => [//广播系统
+            'App\Listeners\PusherEventListener'
         ]
     ];
 

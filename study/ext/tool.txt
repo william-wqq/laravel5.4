@@ -1,0 +1,30 @@
+php包依赖管理工具
+composer
+
+phpStorm 10.0.4
+
+wamp
+wampserver3_x64_apache2.4.17_mysql5.7.9_php5.6.16_php7.0.0(使用的7.0.0)
+
+Navicat Premium 11.2.7
+
+远程管理CLI工具
+SecureCRT
+
+远程图形管理工具
+WinSCP
+
+Git
+
+GitExtensions
+
+github桌面版本
+https://desktop.github.com/
+
+前端资源包管理工具
+bower
+
+Beyond Compare 4
+
+chrome插件
+Postman

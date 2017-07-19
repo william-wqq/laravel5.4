@@ -1,0 +1,39 @@
+一、
+laravel plugin下载
+route、controller、view代码补全提示
+二、
+设置->工具->Command Line Tool Support
+    1、添加composer(这个不需要，但是能查看所有composer命令)
+      choose_tool:composer
+      visibility:gloable
+      alias:composer
+      tool_path:C:\ProgramData\ComposerSetup\bin\composer.bat
+
+
+    2、添加artisan(需要)
+      choose_tool = Tool based on Symfony Console
+      Visibility = project
+      Alias = langzi_artisan
+      Path to PHP executable = E:\wamp64\bin\php\php7.0.0\php.exe
+      Path to script = E:\www\langzi\artisan
+
+
+      choose_tool = Tool based on Symfony Console
+      Visibility = project
+      Alias = winwin_artisan
+      Path to PHP executable = E:\wamp64\bin\php\php7.0.0\php.exe
+      Path to script = E:\www\winwin\artisan
+
+      注意在artisan添加以下代码
+      if(count($argv) == 2 && $argv[1] == "-V"){
+          echo "Symfony version 3.0.0";
+      } else {
+          if($argv[1] == "list" && $argv[2] == "--xml"){
+              $argv[2] = '--format=xml';
+              $_SERVER['argv'] = $argv;
+          }
+      }
+
+      使用工具->Run Commmand Line Tools Console
+      langzi_artisan 就会提示所有的命令，很省事，执行langzi项目下artisan命令
+      winwin_artisan 就会提示所有的命令，很省事，执行winwin项目下artisan命令

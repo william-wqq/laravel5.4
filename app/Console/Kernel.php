@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Jobs\TestJob;
+use App\Models\User;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -27,6 +29,14 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $allUser = User::findOrFail(1);
+        $schedule->call(function() use ($allUser) {
+            //array_walk($allUser, function(User $user){
+                dispatch(new TestJob($allUser));
+            //});
+        })->everyMinute()->name('TestJob');
+
+        $schedule->command('send:mail simple --user 1')->name('send:mail');
     }
 
     /**

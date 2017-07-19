@@ -6,6 +6,13 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Log;
 
+
+class LaravelLoggerProxy {
+    public function log( $msg ) {
+        \SLog::info($msg);
+    }
+}
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -23,11 +30,16 @@ class AppServiceProvider extends ServiceProvider
 
         });
 
+        //队列处理失败
         \Queue::failing(function($job){
             if($job) {
                 \SLog::error('队列处理失败', ['job' => $job]);
             }
         });
+
+        //pusher日志
+        $pusher = $this->app->make('pusher');
+        $pusher->set_logger( new LaravelLoggerProxy());
 
 
     }

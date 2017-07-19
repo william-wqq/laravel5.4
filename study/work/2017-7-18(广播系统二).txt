@@ -1,0 +1,93 @@
+Tuesday fined  morning
+
+后来发现config文件夹下没有pusher.php文件，之前不是已经输入
+php artisan vendor:publish --provider "Vinkla\Pusher\PusherServiceProvider" --tag=config
+
+有个bug问题
+php artisan vendor:publish --provider "Vinkla\Pusher\PusherServiceProvider" 可以复制配置pusher.php到config文件夹下
+php artisan vendor:publish --provider "Vinkla\Pusher\PusherServiceProvider" --tag=config确不可以
+
+ok之后，修改配置文件为
+'connections' => [
+
+    'main' => [
+            'auth_key' => env('PUSHER_APP_KEY'),
+            'secret' => env('PUSHER_APP_SECRET'),
+            'app_id' => env('PUSHER_APP_ID'),
+            'options' => [],
+            'host' => null,
+            'port' => null,
+            'timeout' => null,
+        ],
+
+]
+
+运行本地环境http://gh.test:88/bridge还是不行？到底哪里出问题了呢？为了详细查看错误信息
+在AppServiceProvider.php添加
+class LaravelLoggerProxy {
+    public function log( $msg ) {
+        \SLog::info($msg);
+    }
+}
+
+//pusher日志
+$pusher = $this->app->make('pusher');
+$pusher->set_logger( new LaravelLoggerProxy());
+
+几次失败过后，我们重新创建一个应用测试
+
+1、重新创建一个App  cluster=eu
+2、重新更新上述的PUSHER_APP_KEY、PUSHER_APP_SECRET、PUSHER_APP_ID
+3、修改'host' => 'api-eu.pusher.com',
+
+再次运行环境，Debug Console出现
+{
+  "text": "I Love China!!!"
+}
+成功接受频道
+
+
+
+四、Laravel Event Broadcaster
+
+配置config/broadcasting.php
+.env
+    BROADCAST_DRIVER=pusher
+    PUSHER_APP_ID="369251"
+    PUSHER_APP_KEY="78b7fa36ec88fce1f6a5"
+    PUSHER_APP_SECRET="d5d2d2df8c041a9f08b6"
+
+    'connections' => [
+
+            'pusher' => [
+                'driver' => 'pusher',
+                'key' => env('PUSHER_APP_KEY'),
+                'secret' => env('PUSHER_APP_SECRET'),
+                'app_id' => env('PUSHER_APP_ID'),
+                'options' => [
+                    'cluster' => 'eu',
+                    'encrypted' => true
+                ],
+            ],
+    ]
+
+EventServiceProvider.php添加
+    protected $listen = [
+
+        'App\Events\PusherEvent' => [//广播系统
+            'App\Listeners\PusherEventListener'
+        ]
+    ];
+
+    php artisan event:generate
+
+    Route::get('/broadcast', function () {
+        event(new \App\Events\PusherEvent('Great Wall is great ', '1'));
+        return 'This is a Laravel Broadcaster Test!';
+    });
+
+
+
+
+
+

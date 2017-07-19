@@ -11,6 +11,13 @@
 |
 */
 
+Route::group(['middleware'=>'auth,web'], function(){
+    Route::get('/login', ['as' => 'login', 'uses' => 'LoginController@login']);
+});
+
+
+
+
 /*Route::get('/', function () {
     return view('welcome');
 });*/
@@ -30,10 +37,24 @@ Route::get('/login', ['uses' => 'TestController@login'])->name('login');
 Route::get('/logout', ['uses' => 'TestController@logout'])->name('logout');
 Route::get('/info/{id}', ['uses' => 'TestController@info'])->name('info/{id}');
 
-
 //事物
 Route::get('/event', ['uses' => 'TestController@event'])->name('event');
 //发邮件
 Route::get('/mail', ['uses' => 'TestController@sendMail'])->name('mail');
 //队列
 Route::get('/queue', ['uses' => 'TestController@queue'])->name('queue');
+//Laravel Pusher Bridge
+Route::get('/bridge', function() {
+    $pusher = App::make('pusher');
+    $pusher->trigger( 'test-channel',
+        'test-event',
+        ['text' => 'I Love China!!!']
+    );
+    return 'This is a Laravel Pusher Bridge Test!';
+});
+
+//Laravel Event Broadcaster
+Route::get('/broadcast', function () {
+    event(new \App\Events\PusherEvent('Great Wall is great ', '1'));
+    return 'This is a Laravel Broadcaster Test!';
+});

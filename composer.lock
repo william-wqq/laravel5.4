@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "cae48f73355d416643b8aca471414f77",
+    "content-hash": "56dcc1f026df8609c6abaa0bf77e952b",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -200,7 +200,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dnoegel/php-xdg-base-dir/zipball/265b8593498b997dc2d31e75b89f053b5cc9621a",
+                "url": "https://files.phpcomposer.com/files/dnoegel/php-xdg-base-dir/265b8593498b997dc2d31e75b89f053b5cc9621a.zip",
                 "reference": "265b8593498b997dc2d31e75b89f053b5cc9621a",
                 "shasum": ""
             },
@@ -1089,7 +1089,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JakubOnderka/PHP-Console-Color/zipball/e0b393dacf7703fc36a4efc3df1435485197e6c1",
+                "url": "https://files.phpcomposer.com/files/JakubOnderka/PHP-Console-Color/e0b393dacf7703fc36a4efc3df1435485197e6c1.zip",
                 "reference": "e0b393dacf7703fc36a4efc3df1435485197e6c1",
                 "shasum": ""
             },
@@ -1132,7 +1132,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JakubOnderka/PHP-Console-Highlighter/zipball/7daa75df45242c8d5b75a22c00a201e7954e4fb5",
+                "url": "https://files.phpcomposer.com/files/JakubOnderka/PHP-Console-Highlighter/7daa75df45242c8d5b75a22c00a201e7954e4fb5.zip",
                 "reference": "7daa75df45242c8d5b75a22c00a201e7954e4fb5",
                 "shasum": ""
             },
@@ -1698,7 +1698,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mtdowling/cron-expression/zipball/9504fa9ea681b586028adaaa0877db4aecf32bad",
+                "url": "https://files.phpcomposer.com/files/mtdowling/cron-expression/9504fa9ea681b586028adaaa0877db4aecf32bad.zip",
                 "reference": "9504fa9ea681b586028adaaa0877db4aecf32bad",
                 "shasum": ""
             },
@@ -1846,7 +1846,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/634bae8e911eefa89c1abfbf1b66da679ac8f54d",
+                "url": "https://files.phpcomposer.com/files/paragonie/random_compat/634bae8e911eefa89c1abfbf1b66da679ac8f54d.zip",
                 "reference": "634bae8e911eefa89c1abfbf1b66da679ac8f54d",
                 "shasum": ""
             },
@@ -3200,7 +3200,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tijsverkoyen/CssToInlineStyles/zipball/ab03919dfd85a74ae0372f8baf9f3c7d5c03b04b",
+                "url": "https://files.phpcomposer.com/files/tijsverkoyen/CssToInlineStyles/ab03919dfd85a74ae0372f8baf9f3c7d5c03b04b.zip",
                 "reference": "ab03919dfd85a74ae0372f8baf9f3c7d5c03b04b",
                 "shasum": ""
             },
@@ -3349,6 +3349,52 @@
                 "environment"
             ],
             "time": "2017-02-03T22:05:04+00:00"
+        },
+        {
+            "name": "william-wqq/langzi",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/william-wqq/langzi.git",
+                "reference": "ebd9c80a47f4231b0240c7d437a8e0fad63d847f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/william-wqq/langzi/ebd9c80a47f4231b0240c7d437a8e0fad63d847f.zip",
+                "reference": "ebd9c80a47f4231b0240c7d437a8e0fad63d847f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.16"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Monolog\\": "src/",
+                    "Vendor\\Namespace\\": "src/",
+                    "Vendor_Namespace_": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "william",
+                    "email": "william_wqq@163.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "test for packagist and composer",
+            "homepage": "https://github.com/william-wqq/langzi.git",
+            "keywords": [
+                "array",
+                "file",
+                "php",
+                "string"
+            ],
+            "time": "2017-07-20T15:42:06+00:00"
         }
     ],
     "packages-dev": [
@@ -3943,7 +3989,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-text-template/zipball/31f8b717e51d9a2afca6c9f046f5d69fc27c8686",
+                "url": "https://files.phpcomposer.com/files/sebastianbergmann/php-text-template/31f8b717e51d9a2afca6c9f046f5d69fc27c8686.zip",
                 "reference": "31f8b717e51d9a2afca6c9f046f5d69fc27c8686",
                 "shasum": ""
             },
@@ -4836,7 +4882,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "infyomlabs/adminlte-templates": 20,
-        "infyomlabs/laravel-generator": 20
+        "infyomlabs/laravel-generator": 20,
+        "william-wqq/langzi": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -22,15 +22,88 @@ use Carbon\Carbon;
 
 class TestController extends Controller
 {
-    //
-    public $test;
-
-    public $test1;
 
     public function __construct()
     {
-        //$this->test = $var;
-        //$this->test1 = $var1
+        //
+    }
+
+
+    /**
+     * 数据库查询
+     */
+    public function query()
+    {
+        //------------------------原生的sql查询
+        //$select = \DB::select(" select * from users WHERE id = ? ", [1]);
+        //$select = \DB::select(" SELECT * FROM users WHERE id = :id ", ['id'=>1]);
+
+       // $insert = \DB::insert(" INSERT INTO users (name, email, password) VALUES (? , ? , ?) ", ['langzi', 'langzi1_wqq@163.com', '123456']);
+
+       // $update = \DB::update(" UPDATE users SET name = '更新' WHERE name = ? ", ['langzi']);
+
+       // $delete = \DB::delete(" DELETE FROM users WHERE id = ? ", [4]);
+
+        //事务
+        //方法一(自动)
+        /*\DB::transaction(function(){
+            try {
+                \DB::delete(" DELETE FROM users WHERE id = ? ", [4]);
+                \SLog::info('用户删除成功');
+            } catch(\Exception $e) {
+                \SLog::error('用户删除失败', ['error' => $e->getMessage()]);
+            }
+        });*/
+
+        //方法二(手动)
+       /* \DB::beginTransaction();
+        try {
+            \DB::delete(" DELETE FROM users WHERE id = ? ", [4]);
+            \DB::commit();
+        } catch(\Exception $e) {
+            \DB::rollBack();
+        }*/
+
+
+        //所有
+        //$selectAll = \DB::table('users')->get()->all();
+//        array_walk($selectAll, function($element){
+//            \SLog::info('user: '.$element->id);
+//        });
+        //一行
+        //$selectFirst = \DB::table('users')->where('id', 1)->first();
+
+
+        //获取部分结果
+//        \DB::table('users')->orderBy('id', "DESC")->chunk(10, function($users){
+//            array_walk($users, function($user){
+//                array_walk($user, function($u){
+//                    var_dump($u->name);
+//                });
+//            });
+//
+//            return false;
+//        });
+
+        //$name = \DB::table('users')->pluck('name');
+        //dd($name);
+
+//        $users = \DB::table('users')
+//            ->select(\DB::raw("count(*) as users_count"))
+//            ->where('name', 'like', 'langzi%')
+//            ->orderBy('id', 'DESC')
+//            ->first();
+
+        //dd($users);
+
+        $sql = \DB::table('users')->select(\DB::raw('name'))->get();
+        dd($sql);
+
+
+
+
+
+
 
     }
 
@@ -39,7 +112,7 @@ class TestController extends Controller
      */
     public function supportFunc()
     {
-
+        //
     }
 
     /**

@@ -1,6 +1,15 @@
 #!/usr/bin/env php
 <?php
 
+//新加的内容
+if(count($argv) == 2 && $argv[1] == "-V"){
+        echo "Symfony version 3.0.0";
+} else {
+    if($argv[1] == "list" && $argv[2] == "--xml"){
+        $argv[2] = '--format=xml';
+        $_SERVER['argv'] = $argv;
+    }
+}
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
@@ -47,5 +56,4 @@ $status = $kernel->handle(
 */
 
 $kernel->terminate($input, $status);
-
 exit($status);

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "56dcc1f026df8609c6abaa0bf77e952b",
+    "content-hash": "b04001238702d2e64b99bf57e06f2279",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -1226,12 +1226,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "480d8c9ff688f6b638c55bb2427f2ce850bac870"
+                "reference": "a61a234a69079b9509757b19133c7f4c358b7be1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/laravel/framework/480d8c9ff688f6b638c55bb2427f2ce850bac870.zip",
-                "reference": "480d8c9ff688f6b638c55bb2427f2ce850bac870",
+                "url": "https://files.phpcomposer.com/files/laravel/framework/a61a234a69079b9509757b19133c7f4c358b7be1.zip",
+                "reference": "a61a234a69079b9509757b19133c7f4c358b7be1",
                 "shasum": ""
             },
             "require": {
@@ -1347,7 +1347,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-07-19T22:25:28+00:00"
+            "time": "2017-07-20T19:12:26+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -1555,12 +1555,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/maximebf/php-debugbar.git",
-                "reference": "5fc3605f75416c920f47828c53e179703498ca3a"
+                "reference": "7102278c9e52f6d08da838fcd200fc1748277774"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/maximebf/php-debugbar/5fc3605f75416c920f47828c53e179703498ca3a.zip",
-                "reference": "5fc3605f75416c920f47828c53e179703498ca3a",
+                "url": "https://files.phpcomposer.com/files/maximebf/php-debugbar/7102278c9e52f6d08da838fcd200fc1748277774.zip",
+                "reference": "7102278c9e52f6d08da838fcd200fc1748277774",
                 "shasum": ""
             },
             "require": {
@@ -1608,7 +1608,7 @@
                 "debug",
                 "debugbar"
             ],
-            "time": "2017-07-19T13:33:12+00:00"
+            "time": "2017-07-21T06:20:20+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -2446,12 +2446,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "23ae25d68ac02125ec17ace52c01a245095ee650"
+                "reference": "7f9f05713b7ebaf63a122361f43500513e18af17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/console/23ae25d68ac02125ec17ace52c01a245095ee650.zip",
-                "reference": "23ae25d68ac02125ec17ace52c01a245095ee650",
+                "url": "https://files.phpcomposer.com/files/symfony/console/7f9f05713b7ebaf63a122361f43500513e18af17.zip",
+                "reference": "7f9f05713b7ebaf63a122361f43500513e18af17",
                 "shasum": ""
             },
             "require": {
@@ -2508,7 +2508,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2017-07-19T10:10:53+00:00"
+            "time": "2017-07-20T18:08:38+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -3352,16 +3352,16 @@
         },
         {
             "name": "william-wqq/langzi",
-            "version": "dev-master",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/william-wqq/langzi.git",
-                "reference": "ebd9c80a47f4231b0240c7d437a8e0fad63d847f"
+                "reference": "475067068fcd48a495bf0026e29eeb6a3d48c5d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/william-wqq/langzi/ebd9c80a47f4231b0240c7d437a8e0fad63d847f.zip",
-                "reference": "ebd9c80a47f4231b0240c7d437a8e0fad63d847f",
+                "url": "https://files.phpcomposer.com/files/william-wqq/langzi/475067068fcd48a495bf0026e29eeb6a3d48c5d8.zip",
+                "reference": "475067068fcd48a495bf0026e29eeb6a3d48c5d8",
                 "shasum": ""
             },
             "require": {
@@ -4882,8 +4882,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "infyomlabs/adminlte-templates": 20,
-        "infyomlabs/laravel-generator": 20,
-        "william-wqq/langzi": 20
+        "infyomlabs/laravel-generator": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

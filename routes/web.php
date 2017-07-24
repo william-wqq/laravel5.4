@@ -30,13 +30,13 @@ Route::get('provider', 'ExampleController@index')->name('index');
 
 /*TestController*/
 Route::get('/test/index', 'TestController@index')->name('test.index');
-Route::get('/test/string', 'TestController@testString')->name('test.string');
-Route::get('/test', ['middleware' => 'test', 'uses' => 'TestController@test'])->name('test.www');
 Route::get('/collection', ['middleware' => 'test', 'uses' => 'TestController@collection'])->name('collection');
 Route::get('/login', ['uses' => 'TestController@login'])->name('login');
 Route::get('/logout', ['uses' => 'TestController@logout'])->name('logout');
 Route::get('/info/{id}', ['uses' => 'TestController@info'])->name('info/{id}');
 
+//数据库查询
+Route::get('/query', ['uses' => 'TestController@query'])->name('query');
 //事物
 Route::get('/event', ['uses' => 'TestController@event'])->name('event');
 //发邮件

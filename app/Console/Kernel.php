@@ -29,12 +29,12 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-        $allUser = User::findOrFail(1);
-        $schedule->call(function() use ($allUser) {
-            //array_walk($allUser, function(User $user){
-                dispatch(new TestJob($allUser));
-            //});
-        })->everyMinute()->name('TestJob');
+        //$allUser = User::findOrFail(1);
+//        $schedule->call(function() use ($allUser) {
+//            //array_walk($allUser, function(User $user){
+//                dispatch(new TestJob($allUser));
+//            //});
+//        })->everyMinute()->name('TestJob');
 
         $schedule->command('send:mail simple --user 1')->name('send:mail');
     }

@@ -24,7 +24,7 @@
         "laravelcollective/html": "^5.4.0",
         "predis/predis": "~1.0",
         "vinkla/pusher": "^2.5",
-        "william-wqq/langzi": "dev-master"
+        "william-wqq/langzi": "1.0.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

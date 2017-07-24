@@ -1,3 +1,93 @@
+2017-7-21 Friday Fined afternoon
+一、packagist上传包
+二、设置GitHub Pages
+三、扩展
+
+
+一、packagist上传包
+
+1、创建github仓库
+    仓库名一般为包实现功能 william-wqq/phpcode
+2、仓库上传功能代码，附带
+    --src
+        --类文件
+    --CHANGELOG.md
+    --LICENSE
+    --README.md
+    --composer.json
+
+
+    #composer.json格式
+    {
+
+        "name": "william-wqq/langzi",                    //供应商名/项目名
+        "description": "test for packagist and composer",//包描述
+        "type": "library",                               //默认类型，它会简单的将文件复制到 vendor 目录。
+        "keywords": [ "php", "array", "string", "file" ],
+        "license": "MIT",
+        "authors": [
+            {
+                "name": "william",
+                "email": "william_wqq@163.com",
+                "homepage": "https://github.com/william-wqq",
+                "role": "Developer"
+            }
+        ],
+        "require": {
+            "php": ">=5.6.16"
+        },
+        "autoload": {
+          "psr-0": {
+            "Langzi\\": "src/",
+          }
+        },
+        "minimum-stability": "stable",
+        "extra": {
+              "branch-alias": {
+                "dev-master": "1.0.x-dev"
+              }
+            }
+
+    }
+
+
+    #单个项目配置 镜像用法
+    //默认情况下 composer 只使用 packagist 作为包的资源库
+    1、
+    composer config repo.packagist composer https://packagist.phpcomposer.com
+
+    2、
+    composer.json添加
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
+        }
+    }
+
+    #镜像原理：
+    一般情况下，安装包的数据（主要是 zip 文件）一般是从 github.com 上下载的，安装包的元数据是从 packagist.org 上下载的。
+
+
+2、创建packagist账户并且check->submit, ok之后
+
+3、创建钩子hook，packagist自动更新github上的代码
+    william-wqq/langzi->Settings->Installations & services->Add service->选择packagist->Edit->设置packagist账号和Token->Test service
+
+4、下载包
+    composer require william-wqq/langzi dev-master
+
+5、下载release的版本包
+    william-wqq/langzi->release->设置v1.0.0->ok
+
+    composer require william-wqq/langzi 1.0.*
+
+
+二、设置GitHub Pages
+    https://pages.github.com
+
+
+三、扩展
 http://blog.csdn.net/hel12he/article/details/46659749
 
 http://www.jquerycn.cn/a_16976

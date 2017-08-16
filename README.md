@@ -5,4 +5,4 @@
 this is my second project, now i can using github good day day up
 
 ## php数组函数整理
-[array](https://github.com/william-wqq/william-wqq.github.io/blob/master/study/php/php_array.txt)
+[array](https://github.com/william-wqq/william-wqq.github.io/master/study/php/php_array.txt)

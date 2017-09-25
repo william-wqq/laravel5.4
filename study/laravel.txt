@@ -84,3 +84,12 @@ https://lvwenhan.co
 
 解耦：http://www.cnblogs.com/sweng/p/6430374.html
 依赖注入DI、控制反转IoC：https://segmentfault.com/a/1190000002411255
+
+
+
+
+更新时
+ 'email' => "required|email|unique:users,email,".$id,
+unique:表名,字段,需要排除的ID
+
+

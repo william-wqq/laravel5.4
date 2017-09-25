@@ -14,3 +14,32 @@ composer show packagename
 composer self-update 更新 composer.phar文件自身
 
 composer command --help 以上所有命令都可以添加 --help选项查看帮助信息
+
+
+linux安装
+
+1、下载
+curl -sS https://getcomposer.org/installer | php
+
+2、全局安装
+mv composer.phar /usr/local/bin/composer
+vi ~/.profile
+export PATH=$PATH:/usr/local/bin/composer
+source ~/.profile
+
+3.测试
+composer -v
+
+4、进入项目
+composer install
+
+Do not run Composer as root/super user! See https://getcomposer.org/root for details意思不让超级管理员去运行
+官方给的说明文档https://getcomposer.org/root
+
+5、创建新的用户和用户组
+groupadd william
+useradd -g william -d /home/www/william -s /bin/bash william
+
+william用户去composer install
+
+

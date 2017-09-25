@@ -13,7 +13,7 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=7.0.0",
-        "barryvdh/laravel-debugbar": "^2.4",
+        "barryvdh/laravel-debugbar": "2.4.3",
         "barryvdh/laravel-ide-helper": "^2.3",
         "doctrine/dbal": "^2.5",
         "guzzlehttp/guzzle": "^6.3",
